@@ -4,193 +4,761 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Пиньята Смята — пиньяты на заказ в Красноярске</title>
-<meta name="description" content="Пиньяты на заказ в Красноярске. Яркие пиньяты ручной работы для детских дней рождения и праздников. Цена от 1500 ₽.">
+<title>Пиньята Смята — авторские пиньяты на заказ в Красноярске</title>
+<meta name="description" content="Авторские пиньяты ручной работы в Красноярске. Премиальное качество, индивидуальный дизайн, доставка к празднику. Цена от 1500 ₽.">
+<meta name="keywords" content="пиньята Красноярск, пиньяты на заказ Красноярск, купить пиньяту Красноярск, пиньята на день рождения">
 
 <link rel="icon" type="image/png" href="images/logo.png">
 <link rel="apple-touch-icon" href="images/logo.png">
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
 <style>
+:root {
+    --ink: #1a1418;
+    --ink-soft: #4a3f44;
+    --ink-mute: #8b7f85;
+    --rose: #b81b5c;
+    --rose-deep: #8a1244;
+    --rose-soft: #f5e6ec;
+    --gold: #c9a86a;
+    --gold-soft: #e8dab8;
+    --cream: #fbf7f2;
+    --cream-2: #f4ece2;
+    --white: #ffffff;
+    --line: #ece4dc;
+    --shadow-sm: 0 2px 12px rgba(26, 20, 24, .04);
+    --shadow-md: 0 8px 30px rgba(26, 20, 24, .08);
+    --shadow-lg: 0 20px 60px rgba(26, 20, 24, .12);
+    --radius: 16px;
+    --radius-sm: 10px;
+}
+
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-body { margin: 0; font-family: Arial, sans-serif; background: #fff8fb; color: #29232a; }
+body {
+    margin: 0;
+    font-family: 'Manrope', system-ui, sans-serif;
+    font-weight: 400;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
 a { text-decoration: none; color: inherit; }
-.container { width: min(1120px, 92%); margin: auto; }
+img { max-width: 100%; display: block; }
 
-header { background: white; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 100; }
-.nav { min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
-.logo { display: flex; align-items: center; gap: 10px; font-size: 24px; font-weight: 900; color: #ff4f91; }
-.logo img { width: 48px; height: 48px; object-fit: contain; display: block; }
-.logo span { color: #7c5cff; }
-.menu { display: flex; gap: 22px; align-items: center; }
-.menu a { font-weight: 700; }
-.menu a:hover { color: #ff4f91; }
+h1, h2, h3, h4 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    color: var(--ink);
+    letter-spacing: -.01em;
+    margin: 0;
+}
 
-.btn { display: inline-block; border: none; cursor: pointer; padding: 14px 22px; border-radius: 14px; font-weight: 800; font-size: 16px; font-family: inherit; }
-.btn-primary { background: #ff4f91; color: white; }
-.btn-primary:hover { background: #ed3479; }
-.btn-secondary { background: #eee8ff; color: #6247d9; }
-.btn-secondary:hover { background: #ddd3ff; }
-.btn-small { padding: 10px 16px; font-size: 14px; }
+.container { width: min(1200px, 92%); margin: auto; }
 
+/* ===== ШАПКА ===== */
+header {
+    background: rgba(251, 247, 242, .92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+    position: sticky; top: 0; z-index: 100;
+}
+.nav {
+    min-height: 82px;
+    display: flex; align-items: center; justify-content: space-between; gap: 20px;
+}
+.logo {
+    display: flex; align-items: center; gap: 12px;
+    font-family: 'Playfair Display', serif;
+    font-size: 24px; font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -.02em;
+}
+.logo img { width: 44px; height: 44px; object-fit: contain; }
+.logo span { color: var(--rose); font-style: italic; }
+.menu { display: flex; gap: 34px; align-items: center; }
+.menu a {
+    font-size: 14px; font-weight: 500; color: var(--ink-soft);
+    letter-spacing: .04em; text-transform: uppercase;
+    transition: color .25s;
+    position: relative;
+}
+.menu a::after {
+    content: ''; position: absolute; left: 0; bottom: -6px;
+    width: 0; height: 1px; background: var(--gold);
+    transition: width .35s ease;
+}
+.menu a:hover { color: var(--ink); }
+.menu a:hover::after { width: 100%; }
+
+/* ===== КНОПКИ ===== */
+.btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    border: none; cursor: pointer;
+    padding: 15px 28px;
+    border-radius: 100px;
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    transition: all .3s cubic-bezier(.2,.7,.3,1);
+    white-space: nowrap;
+}
+.btn-primary {
+    background: var(--ink);
+    color: var(--white);
+}
+.btn-primary:hover {
+    background: var(--rose);
+    transform: translateY(-1px);
+    box-shadow: 0 10px 24px rgba(184, 27, 92, .25);
+}
+.btn-outline {
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid var(--ink);
+}
+.btn-outline:hover {
+    background: var(--ink);
+    color: var(--white);
+}
+.btn-small { padding: 11px 20px; font-size: 12px; }
+
+/* ===== ГЛАВНЫЙ ЭКРАН ===== */
 .hero {
-    padding: 75px 0;
-    background:
-        radial-gradient(circle at 8% 15%,  rgba(255, 79, 145, .28) 0, transparent 32%),
-        radial-gradient(circle at 85% 20%, rgba(78, 196, 217, .28) 0, transparent 32%),
-        radial-gradient(circle at 20% 90%, rgba(255, 184, 0, .22) 0, transparent 35%),
-        radial-gradient(circle at 80% 85%, rgba(255, 140, 66, .22) 0, transparent 35%),
-        #fff8fb;
+    padding: 90px 0 100px;
+    background: var(--cream);
+    position: relative;
+    overflow: hidden;
 }
-.hero-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 50px; align-items: center; }
-.badge { display: inline-block; background: #fff; padding: 9px 14px; border-radius: 30px; font-weight: 800; box-shadow: 0 8px 25px rgba(0,0,0,.06); }
-h1 { font-size: clamp(38px, 6vw, 70px); line-height: 1; margin: 20px 0; }
-h1 span { color: #ff4f91; }
-.hero-text { font-size: 20px; line-height: 1.6; color: #655d64; }
-.hero-buttons { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
-.hero-card { background: white; padding: 15px; border-radius: 30px; box-shadow: 0 25px 60px rgba(80,30,70,.12); transform: rotate(2deg); }
-.hero-card img { width: 100%; height: auto; max-height: 430px; object-fit: contain; border-radius: 22px; display: block; }
+.hero::before {
+    content: ''; position: absolute; top: -10%; right: -5%;
+    width: 620px; height: 620px;
+    background: radial-gradient(circle, rgba(201, 168, 106, .18) 0%, transparent 65%);
+    pointer-events: none;
+}
+.hero::after {
+    content: ''; position: absolute; bottom: -20%; left: -10%;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(184, 27, 92, .10) 0%, transparent 65%);
+    pointer-events: none;
+}
+.hero-grid {
+    display: grid; grid-template-columns: 1.05fr .95fr;
+    gap: 80px; align-items: center;
+    position: relative; z-index: 1;
+}
+.badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 8px 16px;
+    background: var(--white);
+    border: 1px solid var(--gold-soft);
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+}
+.badge::before {
+    content: ''; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--rose);
+}
+h1 {
+    font-size: clamp(44px, 6.5vw, 84px);
+    line-height: .98;
+    margin: 26px 0 28px;
+    font-weight: 500;
+    letter-spacing: -.02em;
+}
+h1 .accent {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--rose);
+}
+.hero-lead {
+    font-size: 18px; line-height: 1.7;
+    color: var(--ink-soft);
+    max-width: 480px;
+    margin-bottom: 14px;
+}
+.hero-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: var(--ink);
+    margin: 20px 0 32px;
+}
+.hero-price b { color: var(--rose); font-weight: 600; }
+.hero-buttons { display: flex; flex-wrap: wrap; gap: 14px; }
 
-section { padding: 75px 0; }
-.section-title { text-align: center; font-size: 38px; margin: 0 0 12px; }
-.section-subtitle { text-align: center; color: #777; font-size: 18px; margin-bottom: 40px; }
+.hero-card {
+    background: var(--white);
+    padding: 22px;
+    border-radius: 24px;
+    box-shadow: var(--shadow-lg);
+    position: relative;
+}
+.hero-card::before {
+    content: ''; position: absolute; inset: -1px;
+    border: 1px solid var(--gold-soft);
+    border-radius: 25px;
+    pointer-events: none;
+    margin: 12px;
+}
+.hero-card img {
+    width: 100%; height: auto; max-height: 500px;
+    object-fit: contain;
+    border-radius: 12px;
+    display: block;
+}
 
-.cats { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 32px; }
+/* ===== СЕКЦИИ ===== */
+section { padding: 100px 0; }
+.section-head { text-align: center; margin-bottom: 60px; }
+.section-eyebrow {
+    font-size: 12px; font-weight: 600;
+    letter-spacing: .2em; text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+    display: inline-block;
+    position: relative;
+    padding: 0 40px;
+}
+.section-eyebrow::before,
+.section-eyebrow::after {
+    content: ''; position: absolute; top: 50%;
+    width: 28px; height: 1px; background: var(--gold-soft);
+}
+.section-eyebrow::before { left: 0; }
+.section-eyebrow::after { right: 0; }
+.section-title {
+    font-size: clamp(32px, 4.5vw, 52px);
+    line-height: 1.1;
+    font-weight: 500;
+    margin-bottom: 14px;
+}
+.section-title .accent { font-style: italic; color: var(--rose); font-weight: 400; }
+.section-subtitle {
+    color: var(--ink-mute);
+    font-size: 17px;
+    max-width: 560px;
+    margin: 0 auto;
+}
+
+/* ===== КАТЕГОРИИ ===== */
+.cats {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    justify-content: center;
+    margin-bottom: 50px;
+}
 .cat-btn {
-    background: white; border: 2px solid #f0e6f0; border-radius: 30px;
-    padding: 10px 20px; font-weight: 800; font-size: 15px;
-    cursor: pointer; font-family: inherit; color: #29232a; transition: all .15s;
+    background: transparent;
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    padding: 11px 22px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    cursor: pointer;
+    transition: all .25s;
 }
-.cat-btn:hover { border-color: #ff4f91; color: #ff4f91; }
-.cat-btn.active { background: #ff4f91; color: white; border-color: #ff4f91; }
+.cat-btn:hover { border-color: var(--ink); color: var(--ink); }
+.cat-btn.active {
+    background: var(--ink);
+    color: var(--white);
+    border-color: var(--ink);
+}
 
-.catalog { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
-.product { background: white; border-radius: 22px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,.07); display: flex; flex-direction: column; }
-.product img { width: 100%; height: 260px; object-fit: cover; display: block; }
-.product-placeholder { height: 260px; display: flex; align-items: center; justify-content: center; background: #f4edff; font-size: 80px; }
-.product-info { padding: 20px; display: flex; flex-direction: column; flex: 1; }
-.product h3 { margin: 0 0 8px; font-size: 22px; }
-.product p { color: #777; line-height: 1.5; }
-.price { font-size: 22px; font-weight: 900; color: #ff4f91; margin: 15px 0; }
-.product-info .btn { margin-top: auto; text-align: center; }
+/* ===== КАТАЛОГ ===== */
+.catalog {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+}
+.product {
+    background: var(--white);
+    border-radius: var(--radius);
+    overflow: hidden;
+    display: flex; flex-direction: column;
+    transition: transform .4s cubic-bezier(.2,.7,.3,1), box-shadow .4s;
+    border: 1px solid var(--line);
+}
+.product:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lg);
+}
+.product-img-wrap {
+    position: relative;
+    overflow: hidden;
+    background: var(--cream-2);
+}
+.product img {
+    width: 100%; height: 320px;
+    object-fit: cover;
+    transition: transform .8s cubic-bezier(.2,.7,.3,1);
+}
+.product:hover img { transform: scale(1.05); }
+.product-placeholder {
+    height: 320px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--cream-2);
+    font-size: 72px;
+}
+.product-info {
+    padding: 26px 26px 28px;
+    display: flex; flex-direction: column; flex: 1;
+}
+.product h3 {
+    font-size: 22px;
+    font-weight: 500;
+    margin: 0 0 10px;
+}
+.product p {
+    color: var(--ink-mute);
+    font-size: 14.5px;
+    line-height: 1.6;
+    margin: 0 0 18px;
+}
+.product .price {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--rose);
+    margin: auto 0 16px;
+    padding-top: 8px;
+}
+.product .btn {
+    width: 100%;
+    padding: 14px 20px;
+    font-size: 12px;
+}
 
-.features { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
-.feature { background: white; border-radius: 20px; padding: 25px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,.05); }
-.feature-icon { font-size: 40px; }
-.feature h3 { margin-bottom: 8px; }
+/* ===== ПРЕИМУЩЕСТВА ===== */
+.features {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+.feature {
+    padding: 46px 32px;
+    text-align: center;
+    border-right: 1px solid var(--line);
+    transition: background .3s;
+}
+.feature:last-child { border-right: none; }
+.feature:hover { background: var(--cream); }
+.feature-icon {
+    font-size: 28px;
+    margin-bottom: 20px;
+    display: inline-flex;
+    align-items: center; justify-content: center;
+    width: 60px; height: 60px;
+    border-radius: 50%;
+    background: var(--cream-2);
+    border: 1px solid var(--gold-soft);
+}
+.feature h3 {
+    font-size: 19px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+.feature p {
+    font-size: 14px;
+    color: var(--ink-mute);
+    line-height: 1.55;
+    margin: 0;
+}
 
-.steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
-.step { background: #fff; padding: 25px; border-radius: 20px; }
-.step-number { width: 42px; height: 42px; border-radius: 50%; background: #ff4f91; color: white; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 20px; }
+/* ===== ШАГИ ===== */
+.steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 28px;
+    counter-reset: step;
+}
+.step {
+    padding: 36px 26px;
+    background: var(--white);
+    border-radius: var(--radius);
+    border: 1px solid var(--line);
+    position: relative;
+}
+.step-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 20px;
+}
+.step h3 {
+    font-size: 19px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+.step p {
+    font-size: 14.5px;
+    color: var(--ink-mute);
+    line-height: 1.6;
+    margin: 0;
+}
 
-.contacts { background: #29232a; color: white; }
-.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
-.contacts h2 { font-size: 42px; }
-.contact-item { background: rgba(255,255,255,.08); padding: 18px; border-radius: 15px; margin-bottom: 12px; }
-.contact-item a { color: white; }
-.contact-item a:hover { color: #ff79aa; }
+/* ===== КОНТАКТЫ ===== */
+.contacts {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 100px 0;
+}
+.contacts h2 {
+    color: var(--cream);
+    font-size: clamp(32px, 4.5vw, 52px);
+    font-weight: 500;
+    line-height: 1.1;
+    margin-bottom: 22px;
+}
+.contacts h2 .accent { font-style: italic; color: var(--gold); font-weight: 400; }
+.contacts p { color: rgba(251, 247, 242, .7); font-size: 16px; line-height: 1.7; }
+.contact-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: center;
+}
+.contact-item {
+    padding: 20px 24px;
+    background: rgba(255, 255, 255, .04);
+    border: 1px solid rgba(201, 168, 106, .18);
+    border-radius: var(--radius-sm);
+    margin-bottom: 12px;
+    display: flex; align-items: center; gap: 14px;
+    font-size: 15px;
+    transition: background .3s;
+}
+.contact-item:hover { background: rgba(255, 255, 255, .07); }
+.contact-item .label {
+    color: var(--gold);
+    font-size: 13px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    min-width: 90px;
+}
+.contact-item a { color: var(--cream); }
+.contact-item a:hover { color: var(--gold); }
+
 .qr-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-.qr { background: white; padding: 20px; border-radius: 25px; text-align: center; color: #222; }
-.qr img { width: 180px; max-width: 100%; }
-.qr h3 { margin-top: 0; }
-
-/* МОДАЛЬНОЕ ОКНО */
-.modal-bg {
-    position: fixed; inset: 0; background: rgba(0,0,0,.5);
-    display: none; align-items: center; justify-content: center;
-    z-index: 200; padding: 20px; overflow-y: auto;
+.qr {
+    background: var(--cream);
+    color: var(--ink);
+    padding: 28px 20px;
+    border-radius: var(--radius);
+    text-align: center;
+    border: 1px solid rgba(201, 168, 106, .3);
 }
-.modal-bg.open { display: flex; }
+.qr h3 {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 16px;
+    color: var(--ink);
+}
+.qr img {
+    width: 170px; margin: 0 auto 14px;
+    border-radius: 8px;
+}
+.qr p {
+    font-size: 13px;
+    color: var(--ink-mute);
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* ===== МОДАЛЬНОЕ ОКНО ===== */
+.modal-bg {
+    position: fixed; inset: 0;
+    background: rgba(26, 20, 24, .55);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    display: none; align-items: center; justify-content: center;
+    z-index: 200; padding: 20px;
+    overflow-y: auto;
+}
+.modal-bg.open { display: flex; animation: fadeIn .3s ease; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 .modal {
-    background: white; border-radius: 24px; padding: 30px;
-    max-width: 500px; width: 100%; position: relative;
+    background: var(--cream);
+    border-radius: 20px;
+    padding: 44px 40px 40px;
+    max-width: 520px; width: 100%;
+    position: relative;
     max-height: 90vh; overflow-y: auto;
-    box-shadow: 0 30px 80px rgba(0,0,0,.3);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--gold-soft);
+    animation: slideUp .4s cubic-bezier(.2,.7,.3,1);
+}
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 .modal-close {
-    position: absolute; top: 15px; right: 18px;
-    background: #f0f0f0; border: 0; width: 36px; height: 36px;
-    border-radius: 50%; font-size: 20px; cursor: pointer;
+    position: absolute; top: 16px; right: 20px;
+    background: transparent; border: 0;
+    width: 36px; height: 36px;
+    font-size: 22px; cursor: pointer;
+    color: var(--ink-mute);
+    transition: color .2s;
     display: flex; align-items: center; justify-content: center;
     font-family: inherit;
 }
-.modal-close:hover { background: #ffdddd; }
-.modal h2 { margin: 0 0 8px; font-size: 26px; }
-.modal-sub { color: #777; margin: 0 0 22px; }
-.form-field { margin-bottom: 15px; }
-.form-field label { display: block; font-weight: 700; margin-bottom: 6px; font-size: 14px; }
-.form-field input, .form-field textarea {
-    width: 100%; padding: 12px 14px;
-    border: 2px solid #eee; border-radius: 12px;
-    font-size: 16px; font-family: inherit; background: #fafafa;
+.modal-close:hover { color: var(--rose); }
+.modal h2 {
+    font-size: 30px;
+    font-weight: 500;
+    margin-bottom: 8px;
 }
-.form-field input:focus, .form-field textarea:focus {
-    outline: none; border-color: #ff4f91; background: white;
+.modal h2 .accent { font-style: italic; color: var(--rose); font-weight: 400; }
+.modal-sub {
+    color: var(--ink-mute);
+    font-size: 14.5px;
+    margin: 0 0 28px;
+    line-height: 1.55;
 }
-.form-field textarea { min-height: 80px; resize: vertical; }
-.form-status { margin-top: 12px; font-size: 14px; text-align: center; }
-.form-status.ok { color: #2b9a5b; font-weight: 700; }
-.form-status.err { color: #d43c3c; font-weight: 700; }
-.modal .btn { width: 100%; margin-top: 6px; }
+.form-field { margin-bottom: 16px; }
+.form-field label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 8px;
+}
+.form-field input,
+.form-field textarea {
+    width: 100%;
+    padding: 13px 16px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    font-size: 15px;
+    font-family: inherit;
+    background: var(--white);
+    color: var(--ink);
+    transition: border-color .2s;
+}
+.form-field input:focus,
+.form-field textarea:focus {
+    outline: none;
+    border-color: var(--rose);
+}
+.form-field textarea { min-height: 90px; resize: vertical; }
+.form-status {
+    margin-top: 16px;
+    font-size: 14px;
+    text-align: center;
+    line-height: 1.5;
+}
+.form-status.ok { color: #1f7a4d; font-weight: 600; }
+.form-status.err { color: var(--rose-deep); font-weight: 600; }
+.modal .btn { width: 100%; margin-top: 8px; }
 
-/* АДМИН */
-.admin { background: #f1edf5; }
-.admin-box { max-width: 700px; margin: auto; background: white; padding: 30px; border-radius: 25px; }
-input, textarea, select {
-    width: 100%; padding: 14px; margin: 8px 0 15px;
-    border: 1px solid #ddd; border-radius: 12px;
-    font-size: 16px; font-family: inherit; background: white;
+/* ===== АДМИН ===== */
+.admin { background: var(--cream-2); padding: 80px 0; }
+.admin-box {
+    max-width: 760px; margin: auto;
+    background: var(--white);
+    padding: 40px;
+    border-radius: var(--radius);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-md);
 }
-textarea { min-height: 100px; }
-#preview { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-top: 20px; }
-.preview-card { background: #fafafa; padding: 10px; border-radius: 12px; }
-.preview-card img { width: 100%; height: 130px; object-fit: cover; border-radius: 10px; display: block; }
-.preview-card b { display: block; margin-top: 8px; }
-.preview-card select { margin: 6px 0 0; padding: 8px; font-size: 13px; }
-.price-mini { color: #ff4f91; font-weight: 800; margin-bottom: 6px; }
-.delete-btn { width: 100%; margin-top: 8px; border: none; padding: 8px; border-radius: 8px; background: #ffdddd; cursor: pointer; font-family: inherit; font-size: 14px; }
-.delete-btn:hover { background: #ffc7c7; }
-.admin-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; align-items: center; }
-.hint { font-size: 14px; color: #777; line-height: 1.5; }
-.admin-toggle { background: none; border: 0; color: #ff79aa; cursor: pointer; font: inherit; text-decoration: underline; padding: 0; }
+.admin-box label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin: 18px 0 8px;
+}
+.admin-box input,
+.admin-box textarea,
+.admin-box select {
+    width: 100%;
+    padding: 13px 16px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    font-size: 15px;
+    font-family: inherit;
+    background: var(--cream);
+    color: var(--ink);
+}
+.admin-box input:focus,
+.admin-box textarea:focus,
+.admin-box select:focus {
+    outline: none;
+    border-color: var(--rose);
+    background: var(--white);
+}
+.admin-box textarea { min-height: 90px; resize: vertical; }
 
-/* ЗАЯВКИ */
-.orders-box { margin-top: 30px; background: white; padding: 30px; border-radius: 25px; }
-.orders-title { font-size: 24px; margin: 0 0 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
-.orders-count { background: #ff4f91; color: white; font-size: 14px; padding: 4px 12px; border-radius: 20px; font-weight: 800; }
+#preview {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-top: 26px;
+}
+.preview-card {
+    background: var(--cream);
+    padding: 12px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--line);
+}
+.preview-card img {
+    width: 100%; height: 130px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+.preview-card b { display: block; font-size: 14px; margin-bottom: 4px; }
+.preview-card select { margin: 8px 0 0; padding: 7px 10px; font-size: 13px; }
+.price-mini {
+    font-family: 'Playfair Display', serif;
+    color: var(--rose);
+    font-weight: 600;
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+.delete-btn {
+    width: 100%;
+    margin-top: 8px;
+    border: 1px solid transparent;
+    padding: 8px;
+    border-radius: 8px;
+    background: var(--rose-soft);
+    color: var(--rose-deep);
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all .2s;
+}
+.delete-btn:hover { background: var(--rose-deep); color: var(--white); }
+.admin-actions {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    margin-top: 22px; align-items: center;
+}
+.hint {
+    font-size: 13.5px;
+    color: var(--ink-mute);
+    line-height: 1.6;
+    margin-top: 20px;
+}
+.admin-toggle {
+    background: none; border: 0;
+    color: var(--gold);
+    cursor: pointer; font: inherit;
+    text-decoration: underline;
+    padding: 0;
+}
+
+/* ===== ЗАЯВКИ ===== */
+.orders-box {
+    margin-top: 32px;
+    background: var(--white);
+    padding: 36px;
+    border-radius: var(--radius);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-md);
+}
+.orders-title {
+    font-size: 22px;
+    font-weight: 500;
+    margin: 0 0 24px;
+    display: flex; justify-content: space-between;
+    align-items: center; flex-wrap: wrap; gap: 12px;
+}
+.orders-count {
+    background: var(--rose);
+    color: var(--white);
+    font-size: 13px;
+    padding: 5px 14px;
+    border-radius: 100px;
+    font-weight: 600;
+}
 .order-card {
-    background: #fafafa; border-left: 4px solid #ff4f91;
-    border-radius: 12px; padding: 16px 18px; margin-bottom: 12px;
+    background: var(--cream);
+    border-left: 3px solid var(--rose);
+    border-radius: var(--radius-sm);
+    padding: 20px 22px;
+    margin-bottom: 14px;
 }
-.order-card.new { border-left-color: #2b9a5b; }
-.order-head { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 10px; }
-.order-name { font-weight: 900; font-size: 18px; }
-.order-date { color: #999; font-size: 13px; }
-.order-row { margin-bottom: 6px; font-size: 15px; line-height: 1.5; }
-.order-row b { color: #555; }
-.order-card .delete-btn { width: auto; padding: 8px 14px; margin-top: 10px; }
+.order-card.new { border-left-color: var(--gold); }
+.order-head {
+    display: flex; justify-content: space-between;
+    flex-wrap: wrap; gap: 10px; margin-bottom: 12px;
+}
+.order-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 19px;
+    font-weight: 600;
+}
+.order-date { color: var(--ink-mute); font-size: 12.5px; }
+.order-row { margin-bottom: 7px; font-size: 14.5px; line-height: 1.55; }
+.order-row b { color: var(--ink-soft); font-weight: 600; }
+.order-row a { color: var(--rose); }
+.order-card .delete-btn { width: auto; padding: 7px 14px; margin-top: 12px; font-size: 12px; }
 
-footer { background: #181519; color: #aaa; text-align: center; padding: 25px; }
+/* ===== FOOTER ===== */
+footer {
+    background: var(--ink);
+    color: rgba(251, 247, 242, .55);
+    text-align: center;
+    padding: 40px 20px;
+    font-size: 13.5px;
+    letter-spacing: .04em;
+}
+footer .admin-toggle { color: var(--gold-soft); }
 
-@media (max-width: 800px) {
+/* ===== МОБИЛЬНАЯ ===== */
+@media (max-width: 900px) {
     .menu { display: none; }
-    .hero-grid, .contact-grid { grid-template-columns: 1fr; }
-    .hero { padding: 45px 0; }
-    .hero-card img { max-height: 330px; }
-    .catalog { grid-template-columns: 1fr; }
-    .features, .steps { grid-template-columns: 1fr 1fr; }
-    .section-title { font-size: 31px; }
-    .contacts h2 { font-size: 34px; }
+    .hero-grid, .contact-grid { grid-template-columns: 1fr; gap: 50px; }
+    .hero { padding: 60px 0 70px; }
+    .hero-card img { max-height: 380px; }
+    .catalog { grid-template-columns: 1fr 1fr; }
+    .features { grid-template-columns: 1fr 1fr; }
+    .feature { border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .feature:nth-child(2n) { border-right: none; }
+    .feature:nth-child(3), .feature:nth-child(4) { border-bottom: none; }
+    .steps { grid-template-columns: 1fr 1fr; }
     #preview { grid-template-columns: 1fr 1fr; }
-    .qr-row { grid-template-columns: 1fr; }
+    .qr-row { grid-template-columns: 1fr 1fr; }
+    section { padding: 70px 0; }
+    .contact-item { font-size: 14px; }
+    .contact-item .label { min-width: 80px; font-size: 11px; }
 }
-@media (max-width: 500px) {
-    .features, .steps { grid-template-columns: 1fr; }
+@media (max-width: 560px) {
+    .catalog { grid-template-columns: 1fr; gap: 24px; }
+    .features { grid-template-columns: 1fr; }
+    .feature { border-right: none !important; }
+    .steps { grid-template-columns: 1fr; }
     #preview { grid-template-columns: 1fr; }
-    h1 { font-size: 43px; }
-    .logo img { width: 38px; height: 38px; }
-    .logo { font-size: 18px; }
-    .modal { padding: 22px; }
+    .qr-row { grid-template-columns: 1fr; }
+    .modal { padding: 32px 24px 28px; }
+    .admin-box, .orders-box { padding: 26px 22px; }
+    h1 { font-size: 48px; }
+    .hero-buttons .btn { flex: 1; }
+    .contact-item { flex-direction: column; align-items: flex-start; gap: 6px; }
 }
 </style>
 </head>
@@ -214,99 +782,166 @@ footer { background: #181519; color: #aaa; text-align: center; padding: 25px; }
 
 <main>
 
+<!-- ГЛАВНЫЙ ЭКРАН -->
 <section class="hero">
     <div class="container hero-grid">
         <div>
-            <div class="badge">🎉 Красноярск · ручная работа</div>
-            <h1>Пиньяты<br><span>на праздник</span></h1>
-            <p class="hero-text">Яркие пиньяты ручной работы для детских дней рождения, праздников и фотосессий.</p>
-            <p class="hero-text"><b>Стоимость — от 1500 ₽</b></p>
+            <div class="badge">Красноярск · ручная работа</div>
+            <h1>Пиньяты<br><span class="accent">на праздник</span></h1>
+            <p class="hero-lead">Авторские пиньяты для детских дней рождения, семейных праздников и фотосессий. Каждая — сделана вручную и с любовью.</p>
+            <p class="hero-price">Стоимость — <b>от 1500 ₽</b></p>
             <div class="hero-buttons">
                 <button class="btn btn-primary" onclick="openOrder()">Заказать пиньяту</button>
-                <a class="btn btn-secondary" href="#catalog">Смотреть каталог</a>
+                <a class="btn btn-outline" href="#catalog">Смотреть каталог</a>
             </div>
         </div>
         <div class="hero-card">
-            <img src="images/logo.png" alt="Пиньята Смята">
+            <img src="images/logo.png" alt="Пиньята Смята — пиньяты на заказ в Красноярске">
         </div>
     </div>
 </section>
 
+<!-- КАТАЛОГ -->
 <section id="catalog">
     <div class="container">
-        <h2 class="section-title">Каталог пиньят</h2>
-        <p class="section-subtitle">Можно повторить готовую модель или сделать пиньяту по вашей идее</p>
+        <div class="section-head">
+            <div class="section-eyebrow">Коллекция</div>
+            <h2 class="section-title">Каталог <span class="accent">пиньят</span></h2>
+            <p class="section-subtitle">Можно повторить готовую модель или заказать пиньяту по вашей идее</p>
+        </div>
 
         <div class="cats" id="categories"></div>
+
         <div class="catalog" id="catalogList">
             <p class="hint" style="text-align:center; grid-column: 1 / -1;">Загрузка…</p>
         </div>
     </div>
 </section>
 
+<!-- ПРЕИМУЩЕСТВА -->
 <section>
     <div class="container">
-        <h2 class="section-title">Почему заказывают у нас</h2>
+        <div class="section-head">
+            <div class="section-eyebrow">Наши принципы</div>
+            <h2 class="section-title">Почему <span class="accent">мы</span></h2>
+        </div>
         <div class="features">
-            <div class="feature"><div class="feature-icon">🎨</div><h3>Ручная работа</h3><p>Каждая пиньята создаётся вручную.</p></div>
-            <div class="feature"><div class="feature-icon">🎂</div><h3>Для праздника</h3><p>Подберём оформление под вашу тематику.</p></div>
-            <div class="feature"><div class="feature-icon">✨</div><h3>Индивидуально</h3><p>Можно заказать собственный дизайн.</p></div>
-            <div class="feature"><div class="feature-icon">📍</div><h3>Доставка</h3><p>Работаем с заказами в Красноярске.</p></div>
+            <div class="feature">
+                <div class="feature-icon">🎨</div>
+                <h3>Ручная работа</h3>
+                <p>Каждая пиньята создаётся вручную — от каркаса до декора</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🎂</div>
+                <h3>Под ваш праздник</h3>
+                <p>Подберём цвета и оформление под тематику события</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">✨</div>
+                <h3>Индивидуально</h3>
+                <p>Придумаем и воплотим дизайн, которого больше ни у кого нет</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">📍</div>
+                <h3>Красноярск</h3>
+                <p>Работаем с заказами в городе и по краю</p>
+            </div>
         </div>
     </div>
 </section>
 
+<!-- КАК ЗАКАЗАТЬ -->
 <section id="how">
     <div class="container">
-        <h2 class="section-title">Как заказать</h2>
-        <p class="section-subtitle">Всего несколько простых шагов</p>
+        <div class="section-head">
+            <div class="section-eyebrow">Процесс</div>
+            <h2 class="section-title">Как <span class="accent">заказать</span></h2>
+            <p class="section-subtitle">Всего четыре простых шага до праздника</p>
+        </div>
         <div class="steps">
-            <div class="step"><div class="step-number">1</div><h3>Оставьте заявку</h3><p>Заполните форму на сайте или напишите нам.</p></div>
-            <div class="step"><div class="step-number">2</div><h3>Выберите дизайн</h3><p>Пришлите пример или опишите свою идею.</p></div>
-            <div class="step"><div class="step-number">3</div><h3>Согласуем заказ</h3><p>Обсудим размер, оформление, цену и сроки.</p></div>
-            <div class="step"><div class="step-number">4</div><h3>Получаете пиньяту</h3><p>Готовим заказ к вашему празднику.</p></div>
+            <div class="step">
+                <div class="step-number">01</div>
+                <h3>Оставьте заявку</h3>
+                <p>Заполните форму на сайте — мы её увидим мгновенно</p>
+            </div>
+            <div class="step">
+                <div class="step-number">02</div>
+                <h3>Выберите дизайн</h3>
+                <p>Пришлите пример или опишите свою идею</p>
+            </div>
+            <div class="step">
+                <div class="step-number">03</div>
+                <h3>Согласуем заказ</h3>
+                <p>Обсудим размер, оформление, цену и сроки</p>
+            </div>
+            <div class="step">
+                <div class="step-number">04</div>
+                <h3>Получаете пиньяту</h3>
+                <p>Готовим заказ точно к вашему празднику</p>
+            </div>
         </div>
     </div>
 </section>
 
+<!-- КОНТАКТЫ -->
 <section class="contacts" id="contacts">
     <div class="container contact-grid">
         <div>
-            <h2>Закажем вашу пиньяту? 🎉</h2>
-            <p>Напишите нам — расскажите о празднике, дате и желаемой пиньяте.</p>
-            <div class="contact-item">📱 Телефон: <a href="tel:+79095415959">+7 909 541-59-59</a></div>
-            <div class="contact-item">💬 WhatsApp: <a href="https://wa.me/79095415959" target="_blank">написать в WhatsApp</a></div>
-            <div class="contact-item">VK: <a href="https://vk.ru/pinyatasmyata" target="_blank">vk.ru/pinyatasmyata</a></div>
-            <div class="contact-item">📷 Instagram: <a href="https://www.instagram.com/pinyatasmyata" target="_blank">@pinyatasmyata</a></div>
-            <div class="hero-buttons" style="margin-top:20px;">
-                <button class="btn btn-primary" onclick="openOrder()">Оставить заявку</button>
+            <div class="section-eyebrow" style="padding-left: 0;">Свяжитесь с нами</div>
+            <h2>Закажем вашу <span class="accent">пиньяту?</span></h2>
+            <p style="margin-bottom: 32px;">Напишите нам — расскажите о празднике, дате и желаемой пиньяте. Ответим в течение дня.</p>
+
+            <div class="contact-item">
+                <span class="label">Телефон</span>
+                <a href="tel:+79095415959">+7 909 541-59-59</a>
+            </div>
+            <div class="contact-item">
+                <span class="label">WhatsApp</span>
+                <a href="https://wa.me/79095415959" target="_blank">написать в WhatsApp</a>
+            </div>
+            <div class="contact-item">
+                <span class="label">VK</span>
+                <a href="https://vk.ru/pinyatasmyata" target="_blank">vk.ru/pinyatasmyata</a>
+            </div>
+            <div class="contact-item">
+                <span class="label">Instagram</span>
+                <a href="https://www.instagram.com/pinyatasmyata" target="_blank">@pinyatasmyata</a>
+            </div>
+
+            <div style="margin-top: 30px;">
+                <button class="btn btn-primary" onclick="openOrder()" style="background: var(--gold); color: var(--ink);">Оставить заявку</button>
             </div>
         </div>
+
         <div class="qr-row">
             <div class="qr">
                 <h3>Мы во ВКонтакте</h3>
                 <img src="images/vk-qr.png" alt="QR-код Пиньята Смята ВКонтакте">
-                <p>Наведи камеру телефона и переходи в нашу группу.</p>
+                <p>Наведи камеру телефона и переходи в нашу группу</p>
             </div>
             <div class="qr">
                 <h3>Мы в Instagram</h3>
                 <img src="images/instagram-qr.png" alt="QR-код Пиньята Смята в Instagram">
-                <p>Наведи камеру телефона и подписывайся.</p>
+                <p>Наведи камеру телефона и подписывайся</p>
             </div>
         </div>
     </div>
 </section>
 
+<!-- АДМИН -->
 <section class="admin" id="adminPanel" hidden>
     <div class="container">
-        <h2 class="section-title">Панель администратора</h2>
-        <p class="section-subtitle" id="adminHello"></p>
+        <div class="section-head">
+            <div class="section-eyebrow">Панель управления</div>
+            <h2 class="section-title">Администратор</h2>
+            <p class="section-subtitle" id="adminHello"></p>
+        </div>
 
         <div class="admin-box">
             <label for="productName">Название пиньяты</label>
             <input id="productName" type="text" placeholder="Например: Майнкрафт">
 
-            <label for="productDesc">Описание (необязательно)</label>
+            <label for="productDesc">Описание</label>
             <textarea id="productDesc" placeholder="Пиньята ручной работы, размер 40 см"></textarea>
 
             <label for="productPrice">Цена</label>
@@ -324,10 +959,10 @@ footer { background: #181519; color: #aaa; text-align: center; padding: 25px; }
             <label for="productImage">Фотография</label>
             <input id="productImage" type="file" accept="image/*">
 
-            <button class="btn btn-primary" id="addBtn" onclick="addProduct()">Добавить товар</button>
+            <button class="btn btn-primary" id="addBtn" onclick="addProduct()" style="margin-top: 22px;">Добавить товар</button>
 
             <div class="admin-actions">
-                <button class="btn btn-secondary btn-small" onclick="logout()">Выйти</button>
+                <button class="btn btn-outline btn-small" onclick="logout()">Выйти</button>
             </div>
 
             <p class="hint" id="storageInfo"></p>
@@ -347,15 +982,16 @@ footer { background: #181519; color: #aaa; text-align: center; padding: 25px; }
 </main>
 
 <footer>
-    © 2026 Пиньята Смята · Пиньяты на заказ в Красноярске
+    © 2026 Пиньята Смята · Авторские пиньяты в Красноярске
     · <button class="admin-toggle" onclick="toggleAdmin()">Админ</button>
 </footer>
 
+<!-- МОДАЛЬНОЕ ОКНО -->
 <div class="modal-bg" id="orderModal">
     <div class="modal" role="dialog">
         <button class="modal-close" onclick="closeOrder()" aria-label="Закрыть">×</button>
-        <h2>Оставить заявку</h2>
-        <p class="modal-sub">Заполните форму — мы свяжемся с вами в ближайшее время.</p>
+        <h2>Оставить <span class="accent">заявку</span></h2>
+        <p class="modal-sub">Заполните форму — свяжемся с вами в ближайшее время</p>
 
         <div class="form-field">
             <label for="orderName">Ваше имя *</label>
@@ -366,7 +1002,7 @@ footer { background: #181519; color: #aaa; text-align: center; padding: 25px; }
             <input id="orderPhone" type="tel" placeholder="+7 ___ ___-__-__">
         </div>
         <div class="form-field">
-            <label for="orderProduct">Что хотите заказать?</label>
+            <label for="orderProduct">Что хотите заказать</label>
             <input id="orderProduct" type="text" placeholder="Например: пиньята-цифра «1»">
         </div>
         <div class="form-field">
@@ -437,29 +1073,25 @@ function setCategory(key) {
 function renderCatalogFromCache() {
     const grid = document.getElementById("catalogList");
     let products = cache;
-
     if (activeCategory !== 'all') {
         products = products.filter(function (p) { return p.category === activeCategory; });
     }
-
     if (!products.length) {
         grid.innerHTML = '<p class="hint" style="text-align:center; grid-column: 1 / -1;">В этой категории пока нет товаров.</p>';
         return;
     }
-
     grid.innerHTML = products.map(function (p) {
         const media = p.image
-            ? '<img src="' + esc(p.image) + '" alt="' + esc(p.name) + '" loading="lazy" onerror="this.onerror=null;this.src=\'data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22200%22><rect width=%22200%22 height=%22200%22 fill=%22%23f4edff%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2240%22>🎁</text></svg>\';">'
+            ? '<div class="product-img-wrap"><img src="' + esc(p.image) + '" alt="' + esc(p.name) + '" loading="lazy" onerror="this.onerror=null;this.src=\'data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22200%22><rect width=%22200%22 height=%22200%22 fill=%22%23f4ece2%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2240%22>🎁</text></svg>\';"></div>'
             : '<div class="product-placeholder">🎁</div>';
         const desc = p.desc ? "<p>" + esc(p.desc) + "</p>" : "";
-
         return '' +
             '<article class="product">' +
                 media +
                 '<div class="product-info">' +
                     "<h3>" + esc(p.name) + "</h3>" +
                     desc +
-                    '<div class="price">' + esc(p.price || "цена по запросу") + "</div>" +
+                    '<div class="price">' + esc(p.price || "по запросу") + "</div>" +
                     '<button class="btn btn-primary" onclick="openOrderFor(\'' + esc(p.name).replace(/\'/g, "\\\'") + '\')">Заказать</button>' +
                 "</div>" +
             "</article>";
@@ -471,7 +1103,6 @@ async function renderCatalog() {
     renderCatalogFromCache();
 }
 
-/* Заказ */
 function openOrder() { openOrderFor(''); }
 function openOrderFor(productName) {
     document.getElementById('orderProduct').value = productName || '';
@@ -503,7 +1134,7 @@ async function submitOrder() {
         return;
     }
     btn.disabled = true;
-    btn.textContent = 'Отправляю…';
+    btn.textContent = 'Отправляем…';
     statusEl.textContent = '';
     statusEl.className = 'form-status';
 
@@ -526,13 +1157,11 @@ async function submitOrder() {
     }
 }
 
-/* Админка */
 async function toggleAdmin() {
     try {
         const s = await apiGet('/api/session');
         isAdmin = !!s.authed;
     } catch (e) { isAdmin = false; }
-
     if (!isAdmin) {
         const pwd = prompt("Введите пароль администратора:");
         if (pwd === null) return;
@@ -597,7 +1226,7 @@ async function addProduct() {
     if (!file) { alert("Выберите фотографию."); return; }
 
     btn.disabled = true;
-    btn.textContent = "Обрабатываю фото…";
+    btn.textContent = "Обрабатываем фото…";
 
     try {
         const dataUrl = await compressImage(file);
@@ -650,17 +1279,13 @@ function renderPreview() {
     const preview = document.getElementById("preview");
     const info = document.getElementById("storageInfo");
     info.textContent = "Товаров на сервере: " + cache.length;
-
     if (!cache.length) { preview.innerHTML = '<p class="hint">Пока ничего не добавлено.</p>'; return; }
-
     const opts = CATEGORIES.filter(function (c) { return c.key !== 'all'; });
-
     preview.innerHTML = cache.map(function (p) {
         const sel = opts.map(function (c) {
             const s = c.key === p.category ? ' selected' : '';
             return '<option value="' + c.key + '"' + s + '>' + c.label + '</option>';
         }).join('');
-
         return '' +
             '<div class="preview-card">' +
                 '<img src="' + esc(p.image) + '" alt="' + esc(p.name) + '">' +
@@ -673,20 +1298,16 @@ function renderPreview() {
     }).join('');
 }
 
-/* Заявки */
 async function renderOrders() {
     const box = document.getElementById('ordersList');
     const countEl = document.getElementById('ordersCount');
     try { ordersCache = await apiGet('/api/orders'); }
     catch (e) { ordersCache = []; }
-
     countEl.textContent = ordersCache.length;
-
     if (!ordersCache.length) {
         box.innerHTML = '<p class="hint">Пока заявок нет.</p>';
         return;
     }
-
     box.innerHTML = ordersCache.map(function (o) {
         const dateStr = o.createdAt ? new Date(o.createdAt).toLocaleString('ru-RU') : '';
         return '' +
@@ -712,7 +1333,6 @@ async function deleteOrder(id) {
     } catch (e) { alert("Не удалось удалить: " + e.message); }
 }
 
-/* Запуск */
 renderCategories();
 renderCatalog();
 </script>
