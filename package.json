@@ -1,0 +1,9 @@
+{
+  "name": "pinyatasmyata",
+  "version": "1.0.0",
+  "description": "Пиньяты ручной работы",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  }
+}
