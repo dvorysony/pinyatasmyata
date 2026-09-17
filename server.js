@@ -12,6 +12,9 @@ const SUPABASE_KEY = process.env.SUPABASE_KEY;
 const TG_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const TG_CHAT  = process.env.TELEGRAM_CHAT_ID;
 
+// Прокси для Telegram (через Cloudflare Worker — обходит блокировку)
+const TG_PROXY = 'https://telegram-proxy.dvoryankinas.workers.dev';
+
 if (!SUPABASE_URL || !SUPABASE_KEY) {
     console.error('ОШИБКА: не заданы SUPABASE_URL или SUPABASE_KEY');
 }
@@ -23,7 +26,7 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
 const ROOT = __dirname;
 
-/* ---------- Подписанные токены (переживают перезапуск сервера) ---------- */
+/* ---------- Подписанные токены ---------- */
 
 function makeToken() {
     const payload = 'admin|' + (Date.now() + 1000 * 60 * 60 * 24 * 7);
@@ -108,14 +111,14 @@ async function dbOrders() {
     });
 }
 
-/* ---------- Telegram (с таймаутом 5 секунд) ---------- */
+/* ---------- Telegram через прокси ---------- */
 
 async function sendToTelegram(text) {
     if (!TG_TOKEN || !TG_CHAT) return;
     const controller = new AbortController();
-    const timer = setTimeout(function () { controller.abort(); }, 5000);
+    const timer = setTimeout(function () { controller.abort(); }, 8000);
     try {
-        const url = 'https://api.telegram.org/bot' + TG_TOKEN + '/sendMessage';
+        const url = TG_PROXY + '/bot' + TG_TOKEN + '/sendMessage';
         const res = await fetch(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -131,7 +134,7 @@ async function sendToTelegram(text) {
         if (!data.ok) console.error('Telegram API error:', data.description);
         else console.log('Telegram: уведомление отправлено');
     } catch (e) {
-        console.error('Telegram send error:', e.name === 'AbortError' ? 'таймаут (блокировка)' : e.message);
+        console.error('Telegram send error:', e.name === 'AbortError' ? 'таймаут' : e.message);
     } finally {
         clearTimeout(timer);
     }
@@ -203,8 +206,6 @@ const server = http.createServer(async function (req, res) {
     const url = new URL(req.url, 'http://localhost');
     const pathname = decodeURIComponent(url.pathname);
 
-    /* ============ API ============ */
-
     if (pathname === '/api/products' && req.method === 'GET') {
         return send(res, 200, await dbList());
     }
@@ -233,7 +234,6 @@ const server = http.createServer(async function (req, res) {
         return send(res, 200, { ok: true });
     }
 
-    /* --- Новая заявка --- */
     if (pathname === '/api/order' && req.method === 'POST') {
         try {
             const body = JSON.parse(await readBody(req));
@@ -253,7 +253,6 @@ const server = http.createServer(async function (req, res) {
             });
             if (error) return send(res, 500, { error: error.message });
 
-            // Формируем текст уведомления
             const tgText =
                 '🎉 <b>Новая заявка с сайта</b>\n\n' +
                 '👤 <b>Имя:</b> ' + escHtml(name) + '\n' +
@@ -263,23 +262,19 @@ const server = http.createServer(async function (req, res) {
                 (comment    ? '💬 <b>Комментарий:</b> ' + escHtml(comment) + '\n' : '') +
                 '\n<i>' + new Date().toLocaleString('ru-RU', { timeZone: 'Asia/Krasnoyarsk' }) + ' (Красноярск)</i>';
 
-            // Отправляем БЕЗ await — в фоне, чтобы не блокировать ответ клиенту
             sendToTelegram(tgText).catch(function (e) { console.error('TG bg error:', e.message); });
 
-            // Сразу отвечаем клиенту
             return send(res, 200, { ok: true });
         } catch (e) {
             return send(res, 400, { error: 'Bad request' });
         }
     }
 
-    /* --- Список заявок (только для админа) --- */
     if (pathname === '/api/orders' && req.method === 'GET') {
         if (!isAuthed(req)) return send(res, 401, { error: 'Не авторизован' });
         return send(res, 200, await dbOrders());
     }
 
-    /* --- Удалить заявку --- */
     const orderMatch = pathname.match(/^\/api\/orders\/([^\/]+)$/);
     if (orderMatch && req.method === 'DELETE') {
         if (!isAuthed(req)) return send(res, 401, { error: 'Не авторизован' });
@@ -288,7 +283,6 @@ const server = http.createServer(async function (req, res) {
         return send(res, 200, { ok: true });
     }
 
-    /* --- Добавить товар --- */
     if (pathname === '/api/products' && req.method === 'POST') {
         if (!isAuthed(req)) return send(res, 401, { error: 'Не авторизован' });
         try {
@@ -347,8 +341,6 @@ const server = http.createServer(async function (req, res) {
         }
     }
 
-    /* ============ СТАТИКА ============ */
-
     let filePath = pathname === '/' ? '/index.html' : pathname;
     filePath = path.join(ROOT, filePath);
 
@@ -363,20 +355,17 @@ const server = http.createServer(async function (req, res) {
             return res.end('Not found');
         }
         const ext = path.extname(filePath).toLowerCase();
-        res.writeHead(200, { 'Content-Type': mime(ext) });
+        res.writeHead(200, { 'Content-Type': MIME[ext] || 'application/octet-stream' });
         res.end(data);
     });
 });
-
-function mime(ext) {
-    return MIME[ext] || 'application/octet-stream';
-}
 
 server.listen(PORT, async function () {
     console.log('');
     console.log('  Сервер запущен:  http://localhost:' + PORT);
     console.log('  Supabase:        ' + (SUPABASE_URL ? 'подключён' : 'НЕ ПОДКЛЮЧЁН'));
-    console.log('  Telegram:        ' + (TG_TOKEN && TG_CHAT ? 'подключён' : 'НЕ ПОДКЛЮЧЁН'));
+    console.log('  Telegram:        ' + (TG_TOKEN && TG_CHAT ? 'подключён через прокси' : 'НЕ ПОДКЛЮЧЁН'));
+    console.log('  Telegram proxy:  ' + TG_PROXY);
     console.log('');
     await seedIfEmpty();
 });
