@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Каталог — Пиньята Смята</title>
+<meta name="description" content="Каталог пиньят и шаров ручной работы. Пиньяты на день рождения, корпоратив, свадьбу. Доставка по России.">
+<meta name="keywords" content="пиньята каталог, купить пиньяту, шары, пиньята Красноярск">
+<meta name="robots" content="index, follow">
+<link rel="icon" type="image/png" href="images/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header id="siteHeader">
+    <div class="container nav">
+        <a class="logo" href="index.html"><img src="images/logo.png" alt="Пиньята Смята">Пиньята <span>Смята</span></a>
+        <nav class="menu">
+            <a href="index.html">Главная</a>
+            <a href="catalog.html" class="active">Каталог</a>
+            <a href="knit.html">Тёплый уголок</a>
+            <a href="reviews.html">Отзывы</a>
+            <a href="index.html#contacts">Контакты</a>
+        </nav>
+        <button class="menu-toggle" id="menuToggle" type="button" aria-label="Открыть меню"><span></span><span></span><span></span></button>
+        <button class="btn btn-primary btn-small" onclick="openOrder()">Заказать</button>
+    </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu-inner">
+        <a href="index.html">Главная</a>
+        <a href="catalog.html" class="active">Каталог</a>
+        <a href="knit.html">Тёплый уголок</a>
+        <a href="reviews.html">Отзывы</a>
+        <a href="index.html#contacts">Контакты</a>
+        <a href="#" data-open-order>Оставить заявку</a>
+    </div>
+</div>
+
+<main>
+
+<section class="page-hero">
+    <div class="container">
+        <div class="section-eyebrow">Коллекция</div>
+        <h1>Каталог <span class="accent">изделий</span></h1>
+        <p>Можно повторить готовую модель или заказать по вашей идее</p>
+    </div>
+</section>
+
+<!-- В НАЛИЧИИ -->
+<section id="stockSection" style="padding-top:0;display:none">
+    <div class="container">
+        <div class="section-head reveal">
+            <div class="section-eyebrow">Готово к отправке</div>
+            <h2 class="section-title">Есть в <span class="accent">наличии</span></h2>
+            <p class="section-subtitle">Уже сделаны — можно забрать или отправим сразу</p>
+        </div>
+        <div class="catalog" id="stockList"></div>
+    </div>
+</section>
+
+<!-- ВСЕ ТОВАРЫ -->
+<section style="padding-top:0">
+    <div class="container">
+        <div class="cats reveal" id="categories" style="margin-top:8px"></div>
+        <div class="cats cats-sub reveal" id="subCategories" style="display:none"></div>
+        <div class="catalog" id="catalogList"><p class="catalog-empty">Загрузка…</p></div>
+    </div>
+</section>
+
+<section style="padding-top:0;padding-bottom:96px">
+    <div class="container">
+        <div class="how-contact reveal">
+            <h3>Заявка на сайте <span class="accent">или напишите нам</span></h3>
+            <p>Заполните форму — мы свяжемся с вами. Или напишите в удобный мессенджер: ответим и поможем выбрать дизайн.</p>
+            <div class="row">
+                <button class="btn btn-primary" onclick="openOrder()">Оставить заявку</button>
+                <a class="btn btn-soft" href="https://wa.me/79095415959" target="_blank" rel="noopener">💬 WhatsApp</a>
+                <a class="btn btn-outline" href="https://vk.ru/pinyatasmyata" target="_blank" rel="noopener">👥 ВКонтакте</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+</main>
+
+<footer>
+    <div class="container footer-top">
+        <div class="footer-col footer-col-brand">
+            <a class="footer-brand" href="index.html"><img src="images/logo.png" alt="Пиньята Смята"><div class="name">Пиньята <span>Смята</span></div></a>
+            <p class="footer-about">Авторские изделия ручной работы.</p>
+            <div class="footer-tagline">🎉 Пусть ура кричат ребята!</div>
+            <div class="footer-socials">
+                <a class="soc vk" href="https://vk.ru/pinyatasmyata" target="_blank" rel="noopener">VK</a>
+                <a class="soc wa" href="https://wa.me/79095415959" target="_blank" rel="noopener">💬</a>
+                <a class="soc ig" href="https://www.instagram.com/pinyatasmyata" target="_blank" rel="noopener">📷</a>
+            </div>
+        </div>
+        <div class="footer-col">
+            <h4>Навигация</h4>
+            <ul class="footer-nav">
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="catalog.html">Каталог</a></li>
+                <li><a href="knit.html">Тёплый уголок</a></li>
+                <li><a href="reviews.html">Отзывы</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Контакты</h4>
+            <ul class="footer-contacts">
+                <li><a href="tel:+79095415959"><span class="ic">📱</span> +7 909 541-59-59</a></li>
+                <li><a href="https://wa.me/79095415959" target="_blank" rel="noopener"><span class="ic">💬</span> WhatsApp</a></li>
+                <li><a href="https://vk.ru/pinyatasmyata" target="_blank" rel="noopener"><span class="ic">👥</span> ВКонтакте</a></li>
+                <li><a href="https://www.instagram.com/pinyatasmyata" target="_blank" rel="noopener"><span class="ic">📷</span> Instagram</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="container footer-bottom">
+        <div>© 2026 Пиньята Смята</div>
+        <div class="credit">Красноярск</div>
+    </div>
+</footer>
+
+<div class="modal-bg" id="orderModal">
+    <div class="modal" role="dialog">
+        <button class="modal-close" onclick="closeOrder()" aria-label="Закрыть">×</button>
+        <h2>Оставить <span class="accent">заявку</span></h2>
+        <p class="modal-sub">Заполните форму — свяжемся с вами</p>
+        <div class="form-field"><label for="orderName">Ваше имя *</label><input id="orderName" type="text" placeholder="Как к вам обращаться"></div>
+        <div class="form-field"><label for="orderPhone">Телефон *</label><input id="orderPhone" type="tel" placeholder="+7 ___ ___-__-__"></div>
+        <div class="form-field"><label for="orderProduct">Что хотите заказать</label><input id="orderProduct" type="text" placeholder="Например: пиньята-цифра «1»"></div>
+        <div class="form-field"><label for="orderDate">Дата праздника</label><input id="orderDate" type="date" min=""></div>
+        <div class="form-field"><label for="orderComment">Комментарий</label><textarea id="orderComment" placeholder="Город, цвета, размер, идея"></textarea></div>
+        <button class="btn btn-primary" id="orderBtn" onclick="submitOrder()">Отправить заявку</button>
+        <div class="form-status" id="orderStatus"></div>
+        <div class="modal-divider">или напишите нам</div>
+        <div class="modal-alt">
+            <a class="wa" href="https://wa.me/79095415959" target="_blank" rel="noopener">💬 WhatsApp</a>
+            <a class="vk" href="https://vk.ru/pinyatasmyata" target="_blank" rel="noopener">👥 ВКонтакте</a>
+        </div>
+    </div>
+</div>
+
+<script src="app.js"></script>
+<script>
+let cache = [];
+let activeMainCategory = 'pinyaty';
+let activeSubCategory = 'all';
+
+const MAIN_CATEGORIES = [
+    { key: 'pinyaty', label: 'Пиньяты' },
+    { key: 'balls',   label: 'Шары' }
+];
+
+const SUB_CATEGORIES = {
+    pinyaty: [
+        { key: 'all',    label: 'Все пиньяты' },
+        { key: 'shar',   label: 'Пиньята-шар' },
+        { key: '3d',     label: '3D-фигуры' },
+        { key: 'cifry',  label: 'Цифры' },
+        { key: 'torti',  label: 'Торты' },
+        { key: 'other',  label: 'Другое' }
+    ]
+};
+
+function renderCategories() {
+    const mainBox = document.getElementById('categories');
+    const subBox  = document.getElementById('subCategories');
+
+    mainBox.innerHTML = MAIN_CATEGORIES.map(c => {
+        const a = c.key === activeMainCategory ? ' active' : '';
+        return '<button class="cat-btn cat-btn-main' + a + '" type="button" onclick="setMainCategory(\'' + c.key + '\')">' + c.label + '</button>';
+    }).join('');
+
+    if (activeMainCategory === 'pinyaty') {
+        subBox.style.display = 'flex';
+        subBox.innerHTML = SUB_CATEGORIES.pinyaty.map(c => {
+            const a = c.key === activeSubCategory ? ' active' : '';
+            return '<button class="cat-btn cat-btn-sub' + a + '" type="button" onclick="setSubCategory(\'' + c.key + '\')">' + c.label + '</button>';
+        }).join('');
+    } else {
+        subBox.style.display = 'none';
+        subBox.innerHTML = '';
+        activeSubCategory = 'all';
+    }
+}
+
+function setMainCategory(key) {
+    activeMainCategory = key;
+    activeSubCategory = 'all';
+    renderCategories();
+    renderCatalog();
+}
+
+function setSubCategory(key) {
+    activeSubCategory = key;
+    renderCategories();
+    renderCatalog();
+}
+
+function productHTML(p, i, badge) {
+    const media = p.image
+        ? '<div class="product-img-wrap"><img src="' + esc(p.image) + '" alt="' + esc(p.name) + '" loading="lazy" onerror="this.onerror=null;this.parentElement.innerHTML=\'<div class=&quot;product-placeholder&quot;>🎁</div>\';"></div>'
+        : '<div class="product-placeholder">🎁</div>';
+
+    const desc = p.desc ? '<p>' + esc(p.desc) + '</p>' : '';
+    const delay = 'reveal delay-' + Math.min(4, (i % 4) + 1);
+
+    const badgeHTML = badge
+        ? '<div style="position:absolute;top:14px;right:14px;background:linear-gradient(135deg,#4f7544,#3d5c35);color:#fff;font-size:10.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:6px 12px;border-radius:999px;box-shadow:0 6px 14px rgba(79,117,68,.35);z-index:5;">' + esc(badge) + '</div>'
+        : '';
+
+    return '<article class="product ' + delay + '" style="position:relative;">' +
+        badgeHTML +
+        media +
+        '<div class="product-info">' +
+            '<h3>' + esc(p.name) + '</h3>' + desc +
+            '<div class="price">' + esc(p.price || 'по запросу') + '</div>' +
+            '<button class="btn btn-primary" type="button" data-product="' + esc(p.name) + '">Заказать</button>' +
+        '</div></article>';
+}
+
+function renderCatalog() {
+    const grid = document.getElementById('catalogList');
+    const stockSection = document.getElementById('stockSection');
+    const stockList = document.getElementById('stockList');
+
+    /* Фильтр по выбранным категориям */
+    let products = cache.filter(p => (p.category_main || 'pinyaty') === activeMainCategory);
+    if (activeMainCategory === 'pinyaty' && activeSubCategory !== 'all') {
+        products = products.filter(p => (p.category_sub || p.category || 'other') === activeSubCategory);
+    }
+
+    const inStock = products.filter(p => p.inStock);
+    const examples = products.filter(p => !p.inStock);
+
+    /* В НАЛИЧИИ */
+    if (inStock.length) {
+        stockSection.style.display = 'block';
+        stockList.innerHTML = inStock.map((p, i) => productHTML(p, i, 'В наличии')).join('');
+    } else {
+        stockSection.style.display = 'none';
+        stockList.innerHTML = '';
+    }
+
+    /* ПРИМЕРЫ РАБОТ */
+    if (!examples.length) {
+        if (!inStock.length) {
+            if (activeMainCategory === 'balls') {
+                grid.innerHTML =
+                    '<div class="catalog-empty" style="grid-column:1/-1;text-align:center;padding:64px 24px;">' +
+                        '<div style="font-size:64px;line-height:1;margin-bottom:20px;">🚧</div>' +
+                        '<h3 style="font-size:24px;font-weight:800;color:var(--ink);margin-bottom:14px;letter-spacing:-.02em;">Шары скоро появятся</h3>' +
+                        '<p style="color:var(--mute);font-size:15px;max-width:480px;margin:0 auto 26px;line-height:1.75;">Мы работаем над коллекцией шаров — она появится здесь совсем скоро. А пока загляните в раздел пиньят.</p>' +
+                        '<a href="catalog.html?cat=pinyaty" class="btn btn-primary">Смотреть пиньяты</a>' +
+                    '</div>';
+            } else {
+                grid.innerHTML = '<p class="catalog-empty">В этой категории пока нет товаров.</p>';
+            }
+        } else {
+            /* Есть только «в наличии» — секцию примеров скрываем */
+            grid.innerHTML = '';
+        }
+    } else {
+        grid.innerHTML = examples.map((p, i) => productHTML(p, i)).join('');
+    }
+
+    observeReveals();
+}
+
+async function loadCatalog() {
+    try { cache = await apiGet('/api/products'); } catch (e) { cache = []; }
+    renderCatalog();
+}
+
+(function initFromUrl() {
+    const params = new URLSearchParams(location.search);
+    const cat = params.get('cat');
+    if (cat && MAIN_CATEGORIES.some(c => c.key === cat)) {
+        activeMainCategory = cat;
+    }
+})();
+
+renderCategories();
+loadCatalog();
+</script>
+</body>
+</html>

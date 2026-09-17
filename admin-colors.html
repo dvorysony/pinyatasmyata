@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Цвета ниток — админка | Пиньята Смята</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" href="images/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header id="siteHeader">
+    <div class="container nav">
+        <a class="logo" href="index.html"><img src="images/logo.png" alt="Пиньята Смята">Пиньята <span>Смята</span></a>
+        <nav class="menu">
+            <a href="index.html">Главная</a>
+            <a href="catalog.html">Каталог</a>
+            <a href="knit.html">Тёплый уголок</a>
+            <a href="reviews.html">Отзывы</a>
+        </nav>
+        <button class="menu-toggle" id="menuToggle" type="button" aria-label="Открыть меню"><span></span><span></span><span></span></button>
+        <a class="btn btn-outline btn-small" href="index.html">← В админку</a>
+    </div>
+</header>
+
+<main>
+
+<section class="page-hero">
+    <div class="container">
+        <div class="section-eyebrow">Админка</div>
+        <h1>Цвета <span class="accent">ниток</span></h1>
+        <p>Список цветов, которые есть в наличии. Из него строится палитра в конструкторе на странице «Тёплый уголок».</p>
+    </div>
+</section>
+
+<section style="padding-top:0">
+    <div class="container">
+        <div class="yarn-admin">
+
+            <div class="yarn-add">
+                <div>
+                    <label for="yarnName">Название</label>
+                    <input id="yarnName" type="text" placeholder="Например: Пыльная роза">
+                </div>
+                <div>
+                    <label for="yarnHex">Цвет</label>
+                    <input id="yarnHex" type="color" value="#B89968">
+                </div>
+                <div>
+                    <label for="yarnOrder">Порядок</label>
+                    <input id="yarnOrder" type="number" placeholder="100" value="100">
+                </div>
+                <div>
+                    <button class="btn btn-primary" id="yarnAddBtn" type="button" onclick="addYarn()" style="height:46px">Добавить</button>
+                </div>
+            </div>
+
+            <div class="yarn-list" id="yarnList"><p class="hint">Загрузка…</p></div>
+
+            <div class="admin-actions" style="margin-top:32px">
+                <button class="btn btn-outline" type="button" onclick="logout()">Выйти</button>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+</main>
+
+<footer>
+    <div class="container footer-bottom" style="border-top:none">
+        <div>© 2026 Пиньята Смята · Админка цветов ниток</div>
+        <div class="credit">Красноярск</div>
+    </div>
+</footer>
+
+<script src="app.js"></script>
+<script>
+let yarns = [];
+
+async function loadYarns() {
+    try { yarns = await apiGet('/api/yarn-colors'); } catch (e) { yarns = []; }
+    renderYarns();
+}
+
+function renderYarns() {
+    const box = document.getElementById('yarnList');
+    if (!yarns.length) {
+        box.innerHTML = '<p class="hint">Пока нет ни одного цвета. Добавьте первый.</p>';
+        return;
+    }
+    box.innerHTML = yarns.map(c => '' +
+        '<div class="yarn-card">' +
+            '<div class="yarn-card__swatch" style="background:' + c.hex + '"></div>' +
+            '<div class="yarn-card__name">' + esc(c.name) + '</div>' +
+            '<div class="yarn-card__hex">' + esc(c.hex) + '</div>' +
+            '<div class="yarn-card__actions">' +
+                '<button class="yarn-edit" type="button" onclick="editYarn(\'' + esc(c.id) + '\')">Изменить</button>' +
+                '<button class="yarn-del" type="button" onclick="deleteYarn(\'' + esc(c.id) + '\')">Удалить</button>' +
+            '</div>' +
+        '</div>'
+    ).join('');
+}
+
+async function addYarn() {
+    const name = document.getElementById('yarnName').value.trim();
+    const hex = document.getElementById('yarnHex').value;
+    const sortOrder = parseInt(document.getElementById('yarnOrder').value || 100, 10);
+    if (!name) { alert('Введите название'); return; }
+
+    const btn = document.getElementById('yarnAddBtn');
+    btn.disabled = true; btn.textContent = '…';
+
+    try {
+        await apiSend('POST', '/api/yarn-colors', { name, hex, sortOrder });
+        document.getElementById('yarnName').value = '';
+        await loadYarns();
+    } catch (e) { alert('Не удалось добавить: ' + e.message); }
+    finally { btn.disabled = false; btn.textContent = 'Добавить'; }
+}
+
+async function editYarn(id) {
+    const item = yarns.find(c => c.id === id);
+    if (!item) return;
+    const newName = prompt('Новое название:', item.name);
+    if (newName === null) return;
+    const newHex = prompt('Новый цвет (hex, например #B89968):', item.hex);
+    if (newHex === null) return;
+    const newOrder = prompt('Порядок (число):', item.sortOrder);
+    if (newOrder === null) return;
+
+    try {
+        await apiSend('PUT', '/api/yarn-colors/' + encodeURIComponent(id), {
+            name: newName.trim(),
+            hex: newHex.trim(),
+            sortOrder: parseInt(newOrder, 10)
+        });
+        await loadYarns();
+    } catch (e) { alert('Не удалось сохранить: ' + e.message); }
+}
+
+async function deleteYarn(id) {
+    if (!confirm('Удалить этот цвет?')) return;
+    try {
+        await apiSend('DELETE', '/api/yarn-colors/' + encodeURIComponent(id));
+        await loadYarns();
+    } catch (e) { alert('Не удалось удалить: ' + e.message); }
+}
+
+async function logout() {
+    try { await apiSend('POST', '/api/logout'); } catch (e) {}
+    window.location.href = 'index.html';
+}
+
+/* Проверим авторизацию */
+(async function() {
+    try {
+        const s = await apiGet('/api/session');
+        if (!s.authed) {
+            const pwd = prompt('Введите пароль администратора:');
+            if (pwd) {
+                try { await apiSend('POST', '/api/login', { password: pwd }); } catch (e) {}
+            }
+        }
+    } catch (e) {}
+    loadYarns();
+})();
+</script>
+</body>
+</html>

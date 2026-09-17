@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Отзывы — Пиньята Смята</title>
+<meta name="description" content="Отзывы наших клиентов о пиньятах, шарах и вязаных изделиях.">
+<meta name="robots" content="index, follow">
+<link rel="icon" type="image/png" href="images/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header id="siteHeader">
+    <div class="container nav">
+        <a class="logo" href="index.html"><img src="images/logo.png" alt="Пиньята Смята">Пиньята <span>Смята</span></a>
+        <nav class="menu">
+            <a href="index.html">Главная</a>
+            <a href="catalog.html">Каталог</a>
+            <a href="knit.html">Тёплый уголок</a>
+            <a href="reviews.html" class="active">Отзывы</a>
+            <a href="index.html#contacts">Контакты</a>
+        </nav>
+        <button class="menu-toggle" id="menuToggle" type="button" aria-label="Открыть меню"><span></span><span></span><span></span></button>
+        <button class="btn btn-primary btn-small" onclick="openOrder()">Заказать</button>
+    </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu-inner">
+        <a href="index.html">Главная</a>
+        <a href="catalog.html">Каталог</a>
+        <a href="knit.html">Тёплый уголок</a>
+        <a href="reviews.html" class="active">Отзывы</a>
+        <a href="index.html#contacts">Контакты</a>
+        <a href="#" data-open-order>Оставить заявку</a>
+    </div>
+</div>
+
+<main>
+
+<section class="page-hero">
+    <div class="container">
+        <div class="section-eyebrow">Отзывы</div>
+        <h1>Что говорят <span class="accent">клиенты</span></h1>
+        <p>Реальные отзывы о наших изделиях</p>
+    </div>
+</section>
+
+<section style="padding-top:0">
+    <div class="container">
+        <div class="reviews-grid reveal" id="reviewsList"><p class="reviews-empty">Загрузка…</p></div>
+        <div class="reviews-actions reveal">
+            <button class="btn btn-primary" onclick="openReview()">Оставить отзыв</button>
+        </div>
+    </div>
+</section>
+
+</main>
+
+<footer>
+    <div class="container footer-top">
+        <div class="footer-col footer-col-brand">
+            <a class="footer-brand" href="index.html"><img src="images/logo.png" alt="Пиньята Смята"><div class="name">Пиньята <span>Смята</span></div></a>
+            <p class="footer-about">Авторские изделия ручной работы.</p>
+            <div class="footer-tagline">🎉 Пусть ура кричат ребята!</div>
+            <div class="footer-socials">
+                <a class="soc vk" href="https://vk.ru/pinyatasmyata" target="_blank" rel="noopener">VK</a>
+                <a class="soc wa" href="https://wa.me/79095415959" target="_blank" rel="noopener">💬</a>
+                <a class="soc ig" href="https://www.instagram.com/pinyatasmyata" target="_blank" rel="noopener">📷</a>
+            </div>
+        </div>
+        <div class="footer-col">
+            <h4>Навигация</h4>
+            <ul class="footer-nav">
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="catalog.html">Каталог</a></li>
+                <li><a href="knit.html">Тёплый уголок</a></li>
+                <li><a href="reviews.html">Отзывы</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Контакты</h4>
+            <ul class="footer-contacts">
+                <li><a href="tel:+79095415959"><span class="ic">📱</span> +7 909 541-59-59</a></li>
+                <li><a href="https://wa.me/79095415959" target="_blank" rel="noopener"><span class="ic">💬</span> WhatsApp</a></li>
+                <li><a href="https://vk.ru/pinyatasmyata" target="_blank" rel="noopener"><span class="ic">👥</span> ВКонтакте</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="container footer-bottom">
+        <div>© 2026 Пиньята Смята</div>
+        <div class="credit">Красноярск</div>
+    </div>
+</footer>
+
+<div class="modal-bg" id="orderModal">
+    <div class="modal" role="dialog">
+        <button class="modal-close" onclick="closeOrder()">×</button>
+        <h2>Оставить <span class="accent">заявку</span></h2>
+        <p class="modal-sub">Заполните форму — свяжемся с вами</p>
+        <div class="form-field"><label for="orderName">Ваше имя *</label><input id="orderName" type="text"></div>
+        <div class="form-field"><label for="orderPhone">Телефон *</label><input id="orderPhone" type="tel" placeholder="+7 ___ ___-__-__"></div>
+        <div class="form-field"><label for="orderProduct">Что хотите заказать</label><input id="orderProduct" type="text"></div>
+        <div class="form-field"><label for="orderDate">Дата праздника</label><input id="orderDate" type="date"></div>
+        <div class="form-field"><label for="orderComment">Комментарий</label><textarea id="orderComment"></textarea></div>
+        <button class="btn btn-primary" id="orderBtn" onclick="submitOrder()">Отправить</button>
+        <div class="form-status" id="orderStatus"></div>
+        <div class="modal-divider">или напишите нам</div>
+        <div class="modal-alt">
+            <a class="wa" href="https://wa.me/79095415959" target="_blank" rel="noopener">💬 WhatsApp</a>
+            <a class="vk" href="https://vk.ru/pinyatasmyata" target="_blank" rel="noopener">👥 ВКонтакте</a>
+        </div>
+    </div>
+</div>
+
+<div class="modal-bg" id="reviewModal">
+    <div class="modal" role="dialog">
+        <button class="modal-close" onclick="closeReview()">×</button>
+        <h2>Оставить <span class="accent">отзыв</span></h2>
+        <p class="modal-sub">Поделитесь впечатлением — отзыв появится после проверки</p>
+        <div class="form-field">
+            <label>Ваша оценка</label>
+            <div class="stars-input" id="reviewStars">
+                <button class="star-btn" type="button" data-star="1" onclick="setRating(1)">★</button>
+                <button class="star-btn" type="button" data-star="2" onclick="setRating(2)">★</button>
+                <button class="star-btn" type="button" data-star="3" onclick="setRating(3)">★</button>
+                <button class="star-btn" type="button" data-star="4" onclick="setRating(4)">★</button>
+                <button class="star-btn active" type="button" data-star="5" onclick="setRating(5)">★</button>
+            </div>
+        </div>
+        <div class="form-field"><label for="reviewName">Ваше имя *</label><input id="reviewName" type="text"></div>
+        <div class="form-field"><label for="reviewText">Отзыв *</label><textarea id="reviewText"></textarea></div>
+        <div class="form-field">
+            <label>Фото (необязательно)</label>
+            <label class="photo-input-wrap" for="reviewPhoto">
+                <div class="photo-input-icon">📷</div>
+                <div class="photo-input-text">Выбрать фото</div>
+                <input id="reviewPhoto" type="file" accept="image/*">
+            </label>
+            <div class="photo-preview" id="reviewPhotoPreview">
+                <img id="reviewPhotoImg" alt="">
+                <button type="button" onclick="clearReviewPhoto()">×</button>
+            </div>
+        </div>
+        <button class="btn btn-primary" id="reviewBtn" onclick="submitReview()">Отправить отзыв</button>
+        <div class="form-status" id="reviewStatus"></div>
+    </div>
+</div>
+
+<script src="app.js"></script>
+<script>
+async function loadReviews() {
+    const box = document.getElementById('reviewsList');
+    let list = [];
+    try { list = await apiGet('/api/reviews'); } catch (e) { list = []; }
+    if (!list.length) {
+        box.innerHTML = '<div class="reviews-empty">Пока нет опубликованных отзывов. Станьте первым!</div>';
+        return;
+    }
+    box.innerHTML = list.map(r => renderReviewCard(r, false)).join('');
+}
+loadReviews();
+</script>
+</body>
+</html>
