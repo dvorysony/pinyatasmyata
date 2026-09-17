@@ -2,5 +2,6 @@ User-agent: *
 Allow: /
 Disallow: /api/
 Disallow: /admin
+Disallow: /admin-colors.html
 
 Sitemap: https://pinyatasmyata.ru/sitemap.xml
