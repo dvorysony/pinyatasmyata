@@ -9,9 +9,14 @@ const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'smyata2026';
 
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_KEY = process.env.SUPABASE_KEY;
+const TG_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
+const TG_CHAT  = process.env.TELEGRAM_CHAT_ID;
 
 if (!SUPABASE_URL || !SUPABASE_KEY) {
     console.error('ОШИБКА: не заданы SUPABASE_URL или SUPABASE_KEY');
+}
+if (!TG_TOKEN || !TG_CHAT) {
+    console.warn('ВНИМАНИЕ: Telegram не настроен — уведомления о заявках приходить не будут.');
 }
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -36,6 +41,8 @@ function verifyToken(token) {
     if (sig !== expected) return false;
     return parseInt(expStr, 10) > Date.now();
 }
+
+/* ---------- Стартовые товары ---------- */
 
 const INITIAL_PRODUCTS = [
     { name: "Пиньята-цифра",      descr: "Пиньята в виде цифры или буквы. Идеально для дня рождения.", price: "от 5 000 ₽",    image: "images/cifra.jpg",  button: "Написать", category: "figures" },
@@ -101,6 +108,38 @@ async function dbOrders() {
     });
 }
 
+/* ---------- Telegram ---------- */
+
+async function sendToTelegram(text) {
+    if (!TG_TOKEN || !TG_CHAT) return;
+    try {
+        const url = 'https://api.telegram.org/bot' + TG_TOKEN + '/sendMessage';
+        const res = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                chat_id: TG_CHAT,
+                text: text,
+                parse_mode: 'HTML',
+                disable_web_page_preview: true
+            })
+        });
+        const data = await res.json();
+        if (!data.ok) console.error('Telegram API error:', data.description);
+    } catch (e) {
+        console.error('Telegram send error:', e.message);
+    }
+}
+
+function escHtml(s) {
+    return String(s == null ? '' : s)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+}
+
+/* ---------- Утилиты ---------- */
+
 function parseCookies(req) {
     const h = req.headers.cookie || '';
     const out = {};
@@ -152,9 +191,13 @@ const MIME = {
     '.json': 'application/json; charset=utf-8'
 };
 
+/* ---------- Сервер ---------- */
+
 const server = http.createServer(async function (req, res) {
     const url = new URL(req.url, 'http://localhost');
     const pathname = decodeURIComponent(url.pathname);
+
+    /* ============ API ============ */
 
     if (pathname === '/api/products' && req.method === 'GET') {
         return send(res, 200, await dbList());
@@ -184,6 +227,7 @@ const server = http.createServer(async function (req, res) {
         return send(res, 200, { ok: true });
     }
 
+    /* --- Новая заявка --- */
     if (pathname === '/api/order' && req.method === 'POST') {
         try {
             const body = JSON.parse(await readBody(req));
@@ -202,17 +246,32 @@ const server = http.createServer(async function (req, res) {
                 order_date: order_date, comment: comment
             });
             if (error) return send(res, 500, { error: error.message });
+
+            // Отправляем уведомление в Telegram
+            const tgText =
+                '🎉 <b>Новая заявка с сайта</b>\n\n' +
+                '👤 <b>Имя:</b> ' + escHtml(name) + '\n' +
+                '📞 <b>Телефон:</b> ' + escHtml(phone) + '\n' +
+                (product    ? '🎁 <b>Что хочет:</b> ' + escHtml(product) + '\n' : '') +
+                (order_date ? '📅 <b>Дата праздника:</b> ' + escHtml(order_date) + '\n' : '') +
+                (comment    ? '💬 <b>Комментарий:</b> ' + escHtml(comment) + '\n' : '') +
+                '\n<i>' + new Date().toLocaleString('ru-RU', { timeZone: 'Asia/Krasnoyarsk' }) + ' (Красноярск)</i>';
+
+            await sendToTelegram(tgText);
+
             return send(res, 200, { ok: true });
         } catch (e) {
             return send(res, 400, { error: 'Bad request' });
         }
     }
 
+    /* --- Список заявок (только для админа) --- */
     if (pathname === '/api/orders' && req.method === 'GET') {
         if (!isAuthed(req)) return send(res, 401, { error: 'Не авторизован' });
         return send(res, 200, await dbOrders());
     }
 
+    /* --- Удалить заявку --- */
     const orderMatch = pathname.match(/^\/api\/orders\/([^\/]+)$/);
     if (orderMatch && req.method === 'DELETE') {
         if (!isAuthed(req)) return send(res, 401, { error: 'Не авторизован' });
@@ -221,6 +280,7 @@ const server = http.createServer(async function (req, res) {
         return send(res, 200, { ok: true });
     }
 
+    /* --- Добавить товар --- */
     if (pathname === '/api/products' && req.method === 'POST') {
         if (!isAuthed(req)) return send(res, 401, { error: 'Не авторизован' });
         try {
@@ -237,7 +297,10 @@ const server = http.createServer(async function (req, res) {
                 category: String(body.category || 'other').slice(0, 30)
             };
             const { data, error } = await supabase
-                .from('products').insert(item).select().single();
+                .from('products')
+                .insert(item)
+                .select()
+                .single();
             if (error) return send(res, 500, { error: error.message });
             return send(res, 200, {
                 id: String(data.id), name: data.name, desc: data.descr || '',
@@ -276,6 +339,8 @@ const server = http.createServer(async function (req, res) {
         }
     }
 
+    /* ============ СТАТИКА ============ */
+
     let filePath = pathname === '/' ? '/index.html' : pathname;
     filePath = path.join(ROOT, filePath);
 
@@ -299,6 +364,7 @@ server.listen(PORT, async function () {
     console.log('');
     console.log('  Сервер запущен:  http://localhost:' + PORT);
     console.log('  Supabase:        ' + (SUPABASE_URL ? 'подключён' : 'НЕ ПОДКЛЮЧЁН'));
+    console.log('  Telegram:        ' + (TG_TOKEN && TG_CHAT ? 'подключён' : 'НЕ ПОДКЛЮЧЁН'));
     console.log('');
     await seedIfEmpty();
 });
