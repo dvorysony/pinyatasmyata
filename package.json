@@ -1,12 +1,17 @@
 {
   "name": "pinyatasmyata",
   "version": "1.0.0",
-  "description": "Пиньяты ручной работы",
+  "description": "Пиньята Смята — пиньяты, шары и вязаные изделия ручной работы",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
+  "author": "Пиньята Смята",
+  "license": "MIT",
   "dependencies": {
     "@supabase/supabase-js": "^2.45.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }
