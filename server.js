@@ -108,10 +108,12 @@ async function dbOrders() {
     });
 }
 
-/* ---------- Telegram ---------- */
+/* ---------- Telegram (с таймаутом 5 секунд) ---------- */
 
 async function sendToTelegram(text) {
     if (!TG_TOKEN || !TG_CHAT) return;
+    const controller = new AbortController();
+    const timer = setTimeout(function () { controller.abort(); }, 5000);
     try {
         const url = 'https://api.telegram.org/bot' + TG_TOKEN + '/sendMessage';
         const res = await fetch(url, {
@@ -122,12 +124,16 @@ async function sendToTelegram(text) {
                 text: text,
                 parse_mode: 'HTML',
                 disable_web_page_preview: true
-            })
+            }),
+            signal: controller.signal
         });
         const data = await res.json();
         if (!data.ok) console.error('Telegram API error:', data.description);
+        else console.log('Telegram: уведомление отправлено');
     } catch (e) {
-        console.error('Telegram send error:', e.message);
+        console.error('Telegram send error:', e.name === 'AbortError' ? 'таймаут (блокировка)' : e.message);
+    } finally {
+        clearTimeout(timer);
     }
 }
 
@@ -247,7 +253,7 @@ const server = http.createServer(async function (req, res) {
             });
             if (error) return send(res, 500, { error: error.message });
 
-            // Отправляем уведомление в Telegram
+            // Формируем текст уведомления
             const tgText =
                 '🎉 <b>Новая заявка с сайта</b>\n\n' +
                 '👤 <b>Имя:</b> ' + escHtml(name) + '\n' +
@@ -257,8 +263,10 @@ const server = http.createServer(async function (req, res) {
                 (comment    ? '💬 <b>Комментарий:</b> ' + escHtml(comment) + '\n' : '') +
                 '\n<i>' + new Date().toLocaleString('ru-RU', { timeZone: 'Asia/Krasnoyarsk' }) + ' (Красноярск)</i>';
 
-            await sendToTelegram(tgText);
+            // Отправляем БЕЗ await — в фоне, чтобы не блокировать ответ клиенту
+            sendToTelegram(tgText).catch(function (e) { console.error('TG bg error:', e.message); });
 
+            // Сразу отвечаем клиенту
             return send(res, 200, { ok: true });
         } catch (e) {
             return send(res, 400, { error: 'Bad request' });
@@ -355,10 +363,14 @@ const server = http.createServer(async function (req, res) {
             return res.end('Not found');
         }
         const ext = path.extname(filePath).toLowerCase();
-        res.writeHead(200, { 'Content-Type': MIME[ext] || 'application/octet-stream' });
+        res.writeHead(200, { 'Content-Type': mime(ext) });
         res.end(data);
     });
 });
+
+function mime(ext) {
+    return MIME[ext] || 'application/octet-stream';
+}
 
 server.listen(PORT, async function () {
     console.log('');
