@@ -6,14 +6,6 @@ const { createClient } = require('@supabase/supabase-js');
 
 const PORT = process.env.PORT || 3000;
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'smyata2026';
-const http = require('http');
-const fs = require('fs');
-const path = require('path');
-const crypto = require('crypto');
-const { createClient } = require('@supabase/supabase-js');
-
-const PORT = process.env.PORT || 3000;
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'smyata2026';
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_KEY = process.env.SUPABASE_KEY;
 const TG_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
@@ -34,7 +26,7 @@ function verifyToken(token) {
     if (!token || typeof token !== 'string') return false;
     const parts = token.split('|');
     if (parts.length !== 3) return false;
-    const [role, expStr, sig] = parts;
+    const role = parts[0], expStr = parts[1], sig = parts[2];
     if (role !== 'admin') return false;
     const expected = crypto.createHmac('sha256', ADMIN_PASSWORD).update(role + '|' + expStr).digest('hex');
     if (sig !== expected) return false;
