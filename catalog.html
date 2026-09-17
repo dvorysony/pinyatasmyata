@@ -51,28 +51,29 @@
     </div>
 </section>
 
-<!-- В НАЛИЧИИ -->
-<section id="stockSection" style="padding-top:0;display:none">
-    <div class="container">
-        <div class="section-head reveal">
-            <div class="section-eyebrow">Готово к отправке</div>
-            <h2 class="section-title">Есть в <span class="accent">наличии</span></h2>
-            <p class="section-subtitle">Уже сделаны — можно забрать или отправим сразу</p>
-        </div>
-        <div class="catalog" id="stockList"></div>
-    </div>
-</section>
-
-<!-- ВСЕ ТОВАРЫ -->
 <section style="padding-top:0">
     <div class="container">
-        <div class="cats reveal" id="categories" style="margin-top:8px"></div>
-        <div class="cats cats-sub reveal" id="subCategories" style="display:none"></div>
-        <div class="catalog" id="catalogList"><p class="catalog-empty">Загрузка…</p></div>
+        <div class="catalog-layout" id="catalogLayout">
+
+            <div class="catalog-main">
+                <div class="cats reveal" id="categories" style="margin-top:0"></div>
+                <div class="cats cats-sub reveal" id="subCategories" style="display:none"></div>
+                <div class="catalog" id="catalogList"><p class="catalog-empty">Загрузка…</p></div>
+            </div>
+
+            <aside class="stock-sidebar" id="stockSidebar" style="display:none">
+                <h3 class="stock-title">
+                    <span>✅ В наличии</span>
+                    <span class="stock-count" id="stockCount">0</span>
+                </h3>
+                <div class="catalog" id="stockList"></div>
+            </aside>
+
+        </div>
     </div>
 </section>
 
-<section style="padding-top:0;padding-bottom:96px">
+<section style="padding-top:40px;padding-bottom:96px">
     <div class="container">
         <div class="how-contact reveal">
             <h3>Заявка на сайте <span class="accent">или напишите нам</span></h3>
@@ -211,7 +212,7 @@ function productHTML(p, i, badge) {
     const delay = 'reveal delay-' + Math.min(4, (i % 4) + 1);
 
     const badgeHTML = badge
-        ? '<div style="position:absolute;top:14px;right:14px;background:linear-gradient(135deg,#4f7544,#3d5c35);color:#fff;font-size:10.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:6px 12px;border-radius:999px;box-shadow:0 6px 14px rgba(79,117,68,.35);z-index:5;">' + esc(badge) + '</div>'
+        ? '<div style="position:absolute;top:12px;right:12px;background:linear-gradient(135deg,#4f7544,#3d5c35);color:#fff;font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:999px;box-shadow:0 6px 14px rgba(79,117,68,.35);z-index:5;">' + esc(badge) + '</div>'
         : '';
 
     return '<article class="product ' + delay + '" style="position:relative;">' +
@@ -226,10 +227,12 @@ function productHTML(p, i, badge) {
 
 function renderCatalog() {
     const grid = document.getElementById('catalogList');
-    const stockSection = document.getElementById('stockSection');
+    const layout = document.getElementById('catalogLayout');
+    const sidebar = document.getElementById('stockSidebar');
     const stockList = document.getElementById('stockList');
+    const stockCount = document.getElementById('stockCount');
 
-    /* Фильтр по выбранным категориям */
+    /* Фильтр по категориям */
     let products = cache.filter(p => (p.category_main || 'pinyaty') === activeMainCategory);
     if (activeMainCategory === 'pinyaty' && activeSubCategory !== 'all') {
         products = products.filter(p => (p.category_sub || p.category || 'other') === activeSubCategory);
@@ -238,16 +241,19 @@ function renderCatalog() {
     const inStock = products.filter(p => p.inStock);
     const examples = products.filter(p => !p.inStock);
 
-    /* В НАЛИЧИИ */
+    /* САЙДБАР «В наличии» */
     if (inStock.length) {
-        stockSection.style.display = 'block';
-        stockList.innerHTML = inStock.map((p, i) => productHTML(p, i, 'В наличии')).join('');
+        sidebar.style.display = 'block';
+        layout.classList.remove('no-stock');
+        stockCount.textContent = inStock.length;
+        stockList.innerHTML = inStock.map((p, i) => productHTML(p, i)).join('');
     } else {
-        stockSection.style.display = 'none';
+        sidebar.style.display = 'none';
+        layout.classList.add('no-stock');
         stockList.innerHTML = '';
     }
 
-    /* ПРИМЕРЫ РАБОТ */
+    /* ОСНОВНОЙ КАТАЛОГ (примеры) */
     if (!examples.length) {
         if (!inStock.length) {
             if (activeMainCategory === 'balls') {
@@ -259,11 +265,10 @@ function renderCatalog() {
                         '<a href="catalog.html?cat=pinyaty" class="btn btn-primary">Смотреть пиньяты</a>' +
                     '</div>';
             } else {
-                grid.innerHTML = '<p class="catalog-empty">В этой категории пока нет товаров.</p>';
+                grid.innerHTML = '<p class="catalog-empty" style="grid-column:1/-1">В этой категории пока нет товаров.</p>';
             }
         } else {
-            /* Есть только «в наличии» — секцию примеров скрываем */
-            grid.innerHTML = '';
+            grid.innerHTML = '<p class="catalog-empty" style="grid-column:1/-1">Все товары сейчас в наличии — смотрите справа ➡</p>';
         }
     } else {
         grid.innerHTML = examples.map((p, i) => productHTML(p, i)).join('');
