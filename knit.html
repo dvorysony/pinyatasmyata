@@ -51,7 +51,7 @@
     </div>
 </section>
 
-<!-- ============ КОНСТРУКТОР (без заголовка, сразу превью) ============ -->
+<!-- КОНСТРУКТОР -->
 <section class="constructor" id="constructor" style="padding-top:20px;padding-bottom:40px">
     <div class="container">
 
@@ -105,31 +105,33 @@
     </div>
 </section>
 
-<!-- ============ В НАЛИЧИИ (только если есть) ============ -->
-<section id="stockSection" style="padding-top:20px;display:none">
+<!-- ПРИМЕРЫ РАБОТ + САЙДБАР «В НАЛИЧИИ» -->
+<section style="padding-top:20px">
     <div class="container">
-        <div class="section-head reveal">
-            <div class="section-eyebrow">Готово к отправке</div>
-            <h2 class="section-title">Есть в <span class="accent">наличии</span></h2>
-            <p class="section-subtitle">Уже связаны и ждут хозяина — один экземпляр</p>
+        <div class="catalog-layout" id="knitLayout">
+
+            <div class="catalog-main">
+                <div class="section-head reveal" id="examplesHead" style="display:none">
+                    <div class="section-eyebrow">Галерея</div>
+                    <h2 class="section-title">Связано <span class="accent">с любовью</span></h2>
+                    <p class="section-subtitle">Такие работы уже делали или можем повторить</p>
+                </div>
+                <div class="catalog" id="knitList"></div>
+            </div>
+
+            <aside class="stock-sidebar" id="stockSidebar" style="display:none">
+                <h3 class="stock-title">
+                    <span>✅ В наличии</span>
+                    <span class="stock-count" id="stockCount">0</span>
+                </h3>
+                <div class="catalog" id="stockList"></div>
+            </aside>
+
         </div>
-        <div class="catalog" id="stockList"></div>
     </div>
 </section>
 
-<!-- ============ ПРИМЕРЫ РАБОТ (скрыто, пока пусто) ============ -->
-<section style="padding-top:0;display:none" id="examplesSection">
-    <div class="container">
-        <div class="section-head reveal">
-            <div class="section-eyebrow">Галерея</div>
-            <h2 class="section-title">Связано <span class="accent">с любовью</span></h2>
-            <p class="section-subtitle">Такие работы уже делали или можем повторить — сроки и цену обсудим при заказе</p>
-        </div>
-        <div class="catalog" id="knitList"></div>
-    </div>
-</section>
-
-<section style="padding-top:0;padding-bottom:96px">
+<section style="padding-top:40px;padding-bottom:96px">
     <div class="container">
         <div class="how-contact reveal">
             <h3>Заявка на сайте <span class="accent">или напишите нам</span></h3>
@@ -204,9 +206,7 @@
 
 <script src="app.js"></script>
 <script>
-/* ==================== КАТАЛОГ РАБОТ ==================== */
-
-function productHTML(p, i, badge) {
+function productHTML(p, i) {
     const media = p.image
         ? '<div class="product-img-wrap"><img src="' + esc(p.image) + '" alt="' + esc(p.name) + '" loading="lazy" onerror="this.onerror=null;this.parentElement.innerHTML=\'<div class=&quot;product-placeholder&quot;>🧶</div>\';"></div>'
         : '<div class="product-placeholder">🧶</div>';
@@ -214,12 +214,7 @@ function productHTML(p, i, badge) {
     const desc = p.desc ? '<p>' + esc(p.desc) + '</p>' : '';
     const delay = 'reveal delay-' + Math.min(4, (i % 4) + 1);
 
-    const badgeHTML = badge
-        ? '<div style="position:absolute;top:14px;right:14px;background:linear-gradient(135deg,#4f7544,#3d5c35);color:#fff;font-size:10.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:6px 12px;border-radius:999px;box-shadow:0 6px 14px rgba(79,117,68,.35);z-index:5;">' + esc(badge) + '</div>'
-        : '';
-
-    return '<article class="product ' + delay + '" style="position:relative;">' +
-        badgeHTML +
+    return '<article class="product ' + delay + '">' +
         media +
         '<div class="product-info">' +
             '<h3>' + esc(p.name) + '</h3>' + desc +
@@ -229,10 +224,12 @@ function productHTML(p, i, badge) {
 }
 
 async function loadKnit() {
-    const stockSection = document.getElementById('stockSection');
+    const layout = document.getElementById('knitLayout');
+    const sidebar = document.getElementById('stockSidebar');
     const stockList = document.getElementById('stockList');
+    const stockCount = document.getElementById('stockCount');
     const knitList = document.getElementById('knitList');
-    const examplesSection = document.getElementById('examplesSection');
+    const examplesHead = document.getElementById('examplesHead');
 
     let all = [];
     try {
@@ -243,28 +240,33 @@ async function loadKnit() {
     const inStock = all.filter(p => p.inStock);
     const examples = all.filter(p => !p.inStock);
 
-    /* В наличии */
+    /* САЙДБАР */
     if (inStock.length) {
-        stockSection.style.display = 'block';
-        stockList.innerHTML = inStock.map((p, i) => productHTML(p, i, 'В наличии')).join('');
+        sidebar.style.display = 'block';
+        layout.classList.remove('no-stock');
+        stockCount.textContent = inStock.length;
+        stockList.innerHTML = inStock.map((p, i) => productHTML(p, i)).join('');
     } else {
-        stockSection.style.display = 'none';
+        sidebar.style.display = 'none';
+        layout.classList.add('no-stock');
         stockList.innerHTML = '';
     }
 
-    /* Примеры работ — показываем только если есть */
+    /* ПРИМЕРЫ */
     if (examples.length) {
-        examplesSection.style.display = 'block';
+        examplesHead.style.display = 'block';
         knitList.innerHTML = examples.map((p, i) => productHTML(p, i)).join('');
     } else {
-        examplesSection.style.display = 'none';
-        knitList.innerHTML = '';
+        examplesHead.style.display = 'none';
+        knitList.innerHTML = inStock.length
+            ? '<p class="catalog-empty" style="grid-column:1/-1">Все работы в наличии — смотрите справа ➡</p>'
+            : '<p class="catalog-empty" style="grid-column:1/-1">Скоро здесь появятся примеры работ.</p>';
     }
 
     observeReveals();
 }
 
-/* ==================== КОНСТРУКТОР (превью) ==================== */
+/* ==================== КОНСТРУКТОР ==================== */
 
 const FALLBACK_PALETTE = [
     { name: 'Крем',       hex: '#F5EDE0' },
