@@ -12,6 +12,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="mobile-app.css">
 </head>
 <body>
 
@@ -51,7 +52,6 @@
     </div>
 </section>
 
-<!-- ============ КОНСТРУКТОР (без заголовка, сразу превью) ============ -->
 <section class="constructor" id="constructor" style="padding-top:20px;padding-bottom:40px">
     <div class="container">
 
@@ -105,7 +105,6 @@
     </div>
 </section>
 
-<!-- ============ В НАЛИЧИИ (только если есть) ============ -->
 <section id="stockSection" style="padding-top:20px;display:none">
     <div class="container">
         <div class="section-head reveal">
@@ -117,7 +116,6 @@
     </div>
 </section>
 
-<!-- ============ ПРИМЕРЫ РАБОТ (скрыто, пока пусто) ============ -->
 <section style="padding-top:0;display:none" id="examplesSection">
     <div class="container">
         <div class="section-head reveal">
@@ -204,8 +202,6 @@
 
 <script src="app.js"></script>
 <script>
-/* ==================== КАТАЛОГ РАБОТ ==================== */
-
 function productHTML(p, i, badge) {
     const media = p.image
         ? '<div class="product-img-wrap"><img src="' + esc(p.image) + '" alt="' + esc(p.name) + '" loading="lazy" onerror="this.onerror=null;this.parentElement.innerHTML=\'<div class=&quot;product-placeholder&quot;>🧶</div>\';"></div>'
@@ -243,7 +239,6 @@ async function loadKnit() {
     const inStock = all.filter(p => p.inStock);
     const examples = all.filter(p => !p.inStock);
 
-    /* В наличии */
     if (inStock.length) {
         stockSection.style.display = 'block';
         stockList.innerHTML = inStock.map((p, i) => productHTML(p, i, 'В наличии')).join('');
@@ -252,7 +247,6 @@ async function loadKnit() {
         stockList.innerHTML = '';
     }
 
-    /* Примеры работ — показываем только если есть */
     if (examples.length) {
         examplesSection.style.display = 'block';
         knitList.innerHTML = examples.map((p, i) => productHTML(p, i)).join('');
@@ -263,8 +257,6 @@ async function loadKnit() {
 
     observeReveals();
 }
-
-/* ==================== КОНСТРУКТОР (превью) ==================== */
 
 const FALLBACK_PALETTE = [
     { name: 'Крем',       hex: '#F5EDE0' },
@@ -462,12 +454,12 @@ async function loadYarnColors() {
     renderPalettes();
 }
 
-/* ==================== СТАРТ ==================== */
 renderPalettes();
 initState();
 renderStage();
 loadYarnColors().then(() => renderStage());
 loadKnit();
 </script>
+<script src="mobile-app.js" defer></script>
 </body>
 </html>
