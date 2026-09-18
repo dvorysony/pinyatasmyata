@@ -26,7 +26,7 @@ function verifyToken(token) {
     if (!token || typeof token !== 'string') return false;
     const parts = token.split('|');
     if (parts.length !== 3) return false;
-    const role = parts[0], expStr = parts[1], sig = parts[2];
+    const [role, expStr, sig] = parts;
     if (role !== 'admin') return false;
     const expected = crypto.createHmac('sha256', ADMIN_PASSWORD).update(role + '|' + expStr).digest('hex');
     if (sig !== expected) return false;
