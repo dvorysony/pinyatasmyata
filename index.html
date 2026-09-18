@@ -567,7 +567,7 @@
     <div class="modal" role="dialog">
         <button class="modal-close" onclick="closeReview()" aria-label="Закрыть">×</button>
         <h2>Оставить <span class="accent">отзыв</span></h2>
-        <p class="modal-sub">Поделитесь впечатлением — отзыв появится после проверки</p>
+        <p class="modal-sub">Поделитесь впечатлением — отзыв сразу появится на сайте</p>
         <div class="form-field">
             <label>Ваша оценка</label>
             <div class="stars-input" id="reviewStars">
@@ -591,7 +591,7 @@
                 <img id="reviewPhotoImg" alt="">
                 <button type="button" onclick="clearReviewPhoto()">×</button>
             </div>
-            <p class="form-hint">Фото автоматически сожмётся. Показывается всем после модерации.</p>
+            <p class="form-hint">Фото автоматически сожмётся. Показывается всем сразу.</p>
         </div>
         <button class="btn btn-primary" id="reviewBtn" onclick="submitReview()">Отправить отзыв</button>
         <div class="form-status" id="reviewStatus"></div>
@@ -678,7 +678,6 @@ const SUB_CATEGORIES = {
     ]
 };
 
-/* ===== Вкладки / фильтры ===== */
 function switchAdminTab(tab) {
     adminTab = tab;
     document.querySelectorAll('.admin-tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
@@ -701,7 +700,6 @@ function filterProducts(q) {
     renderPreview();
 }
 
-/* ===== Модалка «Новый товар» ===== */
 function openAddProduct() {
     ['productName','productDesc','productPrice','productPriceTo'].forEach(id => {
         const el = document.getElementById(id);
@@ -729,7 +727,6 @@ function clearProductPhoto() {
     if (i) i.value = '';
 }
 
-/* ===== Утилиты inline-редактирования ===== */
 function autoGrow(el) {
     el.style.height = 'auto';
     el.style.height = Math.max(el.scrollHeight, 28) + 'px';
@@ -790,7 +787,6 @@ async function savePriceType(id, type) {
     } catch (e) { alert('Не удалось: ' + e.message); }
 }
 
-/* ===== Рендер товаров ===== */
 function renderPreview() {
     const preview = document.getElementById('preview');
     if (!preview) return;
@@ -868,8 +864,7 @@ function renderPreview() {
     setTimeout(() => preview.querySelectorAll('.ar-input--desc').forEach(ta => autoGrow(ta)), 0);
 }
 
-/* ===== Общие функции ===== */
-function toggleCollapsible() { /* отключено — теперь вкладки */ }
+function toggleCollapsible() { /* отключено */ }
 
 function updatePricePreview() {
     const raw = document.getElementById('productPrice').value;
@@ -1138,7 +1133,6 @@ document.addEventListener('keydown', function (e) {
 bindPhotoInput('manualPhoto', 'manualPhotoPreview', 'manualPhotoImg', v => manualPhotoData = v);
 bindPhotoInput('productImage', 'productPhotoPreview', 'productPhotoImg', v => productPhotoData = v);
 
-/* Переключатель «до» при выборе типа «от–до» */
 (function bindPriceTypeToggle() {
     const sel = document.getElementById('productPriceType');
     const toEl = document.getElementById('productPriceTo');
@@ -1151,7 +1145,6 @@ bindPhotoInput('productImage', 'productPhotoPreview', 'productPhotoImg', v => pr
 onMainCategoryChange();
 renderCatalog();
 
-/* Параллакс hero */
 (function initParallax() {
     const heroSection = document.querySelector('.hero-section');
     if (!heroSection) return;
