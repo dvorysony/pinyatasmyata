@@ -10,7 +10,13 @@ const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_KEY = process.env.SUPABASE_KEY;
 const TG_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const TG_CHAT  = process.env.TELEGRAM_CHAT_ID;
-const TG_PROXY = process.env.TELEGRAM_PROXY_URL || 'https://api.telegram.org';
+
+/* Список прокси: сначала из переменной, потом вшитый Cloudflare Worker, потом прямое подключение */
+const TG_PROXY_CANDIDATES = [
+    process.env.TELEGRAM_PROXY_URL,
+    'https://telegram-proxy.dvoryankinas.workers.dev',
+    'https://api.telegram.org'
+].filter(Boolean);
 
 if (!SUPABASE_URL || !SUPABASE_KEY) console.error('ОШИБКА: не заданы SUPABASE_URL или SUPABASE_KEY');
 
@@ -110,24 +116,53 @@ async function dbYarnColors() {
 }
 
 async function sendToTelegram(text) {
-    if (!TG_TOKEN || !TG_CHAT) return;
-    const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), 8000);
-    try {
-        const url = TG_PROXY + '/bot' + TG_TOKEN + '/sendMessage';
-        const res = await fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ chat_id: TG_CHAT, text, parse_mode: 'HTML', disable_web_page_preview: true }),
-            signal: controller.signal
-        });
-        const data = await res.json();
-        if (!data.ok) console.error('Telegram API:', data.description);
-        else console.log('Telegram: отправлено');
-    } catch (e) {
-        console.error('Telegram:', e.name === 'AbortError' ? 'таймаут' : e.message);
-    } finally { clearTimeout(timer); }
+    if (!TG_TOKEN || !TG_CHAT) {
+        console.log('Telegram: пропущено — нет TG_TOKEN или TG_CHAT');
+        return;
+    }
+
+    const payload = JSON.stringify({
+        chat_id: TG_CHAT,
+        text,
+        parse_mode: 'HTML',
+        disable_web_page_preview: true
+    });
+
+    /* Пробуем каждый прокси по очереди, пока не сработает */
+    for (let i = 0; i < TG_PROXY_CANDIDATES.length; i++) {
+        const proxy = TG_PROXY_CANDIDATES[i];
+        const url = proxy + '/bot' + TG_TOKEN + '/sendMessage';
+        const controller = new AbortController();
+        const timer = setTimeout(() => controller.abort(), 8000);
+
+        try {
+            const res = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: payload,
+                signal: controller.signal
+            });
+
+            const data = await res.json();
+
+            if (data.ok) {
+                console.log('Telegram: отправлено через ' + proxy);
+                clearTimeout(timer);
+                return;
+            }
+
+            console.error('Telegram API (' + proxy + '): ' + data.description);
+
+        } catch (e) {
+            console.error('Telegram (' + proxy + '): ' + (e.name === 'AbortError' ? 'таймаут' : e.message));
+        } finally {
+            clearTimeout(timer);
+        }
+    }
+
+    console.error('Telegram: ВСЕ прокси не сработали');
 }
+
 function escHtml(s) {
     return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
@@ -267,7 +302,7 @@ const server = http.createServer(async (req, res) => {
             const rating = Math.max(1, Math.min(5, parseInt(body.rating || 5, 10)));
             const source = String(body.source || 'site').slice(0, 20);
             if (!name || !text) return send(res, 400, { error: 'Укажите имя и текст' });
-            /* ✅ ОТЗЫВ ПУБЛИКУЕТСЯ СРАЗУ — status: 'approved' */
+            /* ✅ Отзыв публикуется сразу */
             const { error } = await supabase.from('reviews').insert({ name, text, photo, rating, source, status: 'approved' });
             if (error) return send(res, 500, { error: error.message });
             const t = '⭐ <b>Новый отзыв</b>\n\n👤 ' + escHtml(name) + '\n⭐ ' + rating + '/5\n💬 ' + escHtml(text.slice(0, 300));
@@ -368,6 +403,7 @@ server.listen(PORT, async () => {
     console.log('  Сервер:  http://localhost:' + PORT);
     console.log('  Supabase: ' + (SUPABASE_URL ? 'ok' : 'НЕТ'));
     console.log('  Telegram: ' + (TG_TOKEN ? 'ok' : 'НЕТ'));
+    console.log('  TG прокси: ' + TG_PROXY_CANDIDATES.join(' → '));
     console.log('');
     await seedIfEmpty();
 });
