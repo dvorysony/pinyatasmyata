@@ -12,6 +12,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="mobile-app.css">
 </head>
 <body>
 
@@ -178,7 +179,6 @@ function renderCategories() {
         return '<button class="cat-btn cat-btn-main' + a + '" type="button" onclick="setMainCategory(\'' + c.key + '\')">' + c.label + '</button>';
     }).join('');
 
-    // Отдельная кнопка-ссылка на Тёплый уголок
     const knitLink = '<a href="knit.html" class="cat-btn cat-btn-main cat-btn-link">🧶 Вязаные изделия</a>';
 
     mainBox.innerHTML = mainHTML + knitLink;
@@ -238,7 +238,6 @@ function renderCatalog() {
     const stockList = document.getElementById('stockList');
     const stockCount = document.getElementById('stockCount');
 
-    /* Фильтр по категориям */
     let products = cache.filter(p => (p.category_main || 'pinyaty') === activeMainCategory);
     if (activeMainCategory === 'pinyaty' && activeSubCategory !== 'all') {
         products = products.filter(p => (p.category_sub || p.category || 'other') === activeSubCategory);
@@ -247,7 +246,6 @@ function renderCatalog() {
     const inStock = products.filter(p => p.inStock);
     const examples = products.filter(p => !p.inStock);
 
-    /* САЙДБАР «В наличии» */
     if (inStock.length) {
         sidebar.style.display = 'block';
         layout.classList.remove('no-stock');
@@ -259,7 +257,6 @@ function renderCatalog() {
         stockList.innerHTML = '';
     }
 
-    /* ОСНОВНОЙ КАТАЛОГ (примеры) */
     if (!examples.length) {
         if (!inStock.length) {
             if (activeMainCategory === 'balls') {
@@ -274,7 +271,7 @@ function renderCatalog() {
                 grid.innerHTML = '<p class="catalog-empty" style="grid-column:1/-1">В этой категории пока нет товаров.</p>';
             }
         } else {
-            grid.innerHTML = '<p class="catalog-empty" style="grid-column:1/-1">Все товары сейчас в наличии — смотрите справа ➡</p>';
+            grid.innerHTML = '<p class="catalog-empty" style="grid-column:1/-1">Все товары сейчас в наличии — смотрите блок «✅ В наличии» выше</p>';
         }
     } else {
         grid.innerHTML = examples.map((p, i) => productHTML(p, i)).join('');
@@ -299,5 +296,6 @@ async function loadCatalog() {
 renderCategories();
 loadCatalog();
 </script>
+<script src="mobile-app.js" defer></script>
 </body>
 </html>
