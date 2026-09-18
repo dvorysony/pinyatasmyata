@@ -267,7 +267,8 @@ const server = http.createServer(async (req, res) => {
             const rating = Math.max(1, Math.min(5, parseInt(body.rating || 5, 10)));
             const source = String(body.source || 'site').slice(0, 20);
             if (!name || !text) return send(res, 400, { error: 'Укажите имя и текст' });
-            const { error } = await supabase.from('reviews').insert({ name, text, photo, rating, source, status: 'pending' });
+            /* ✅ ОТЗЫВ ПУБЛИКУЕТСЯ СРАЗУ — status: 'approved' */
+            const { error } = await supabase.from('reviews').insert({ name, text, photo, rating, source, status: 'approved' });
             if (error) return send(res, 500, { error: error.message });
             const t = '⭐ <b>Новый отзыв</b>\n\n👤 ' + escHtml(name) + '\n⭐ ' + rating + '/5\n💬 ' + escHtml(text.slice(0, 300));
             sendToTelegram(t).catch(() => {});
