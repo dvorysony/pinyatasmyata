@@ -238,12 +238,13 @@ async function submitReview() {
         await apiSend('POST', '/api/reviews', {
             name, text, rating: reviewRating, photo: reviewPhotoData, source: 'site'
         });
-        statusEl.textContent = 'Спасибо! Отзыв отправлен на проверку.';
+        /* ✅ Отзыв опубликован сразу */
+        statusEl.textContent = 'Спасибо! Ваш отзыв опубликован.';
         statusEl.className = 'form-status ok';
         document.getElementById('reviewName').value = '';
         document.getElementById('reviewText').value = '';
         clearReviewPhoto();
-        setTimeout(closeReview, 2600);
+        setTimeout(closeReview, 2000);
         if (typeof loadReviews === 'function') loadReviews();
     } catch (e) {
         statusEl.textContent = e.message || 'Не удалось отправить.';
