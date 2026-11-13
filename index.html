@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- SEO: Заменили Title и Description под запрос -->
+<!-- SEO -->
 <title>Пиньяты на заказ в Красноярске — ручная работа | Пиньята Смята</title>
 <meta name="description" content="Заказать пиньяту в Красноярске. Авторские пиньяты, шары и 3D-фигуры ручной работы. Доставка и самовывоз Академгородок.">
 <meta name="keywords" content="пиньята красноясрк, пиньяты красноярск, пиньяты академгородок, заказать пиньяту академгородок, шары, вязаные игрушки красноярск, ручная работа красноярск">
@@ -203,46 +203,163 @@
     .welcome-item__icon { width: 42px; height: 42px; font-size: 20px; }
 }
 
-/* Стили для новогодних новинок в Hero */
-.hero-newyear-block {
-    margin: 24px 0;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-.hero-newyear-title {
-    font-size: 12px;
-    font-weight: 800;
-    color: var(--brand);
-    letter-spacing: .08em;
-    text-transform: uppercase;
-}
-.hero-newyear-grid {
-    display: flex;
-    gap: 12px;
-}
-.hero-newyear-img {
-    flex: 1;
-    border-radius: 16px;
+/* ============ НОВОГОДНИЙ БЛОК (ШИРОКИЙ) ============ */
+.ny-promo-block {
+    position: relative;
+    background: linear-gradient(135deg, #FFFCF9 0%, #FDF3EC 100%);
+    border: 1px solid rgba(199, 154, 85, 0.3);
+    border-radius: 30px;
+    padding: 40px 50px;
+    box-shadow: 0 15px 40px rgba(54, 28, 31, 0.08), inset 0 0 40px rgba(255, 255, 255, 0.9);
     overflow: hidden;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
-    transition: transform 0.3s;
+    z-index: 1;
+    margin-top: 10px;
+}
+
+/* Мерцающие звездочки на фоне */
+.ny-promo-block::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: 
+        radial-gradient(circle, #FFF 1.5px, transparent 2px),
+        radial-gradient(circle, #E6C994 2px, transparent 2.5px);
+    background-size: 60px 60px, 90px 90px;
+    background-position: 0 0, 30px 30px;
+    opacity: 0.5;
+    animation: twinkleBg 4s infinite alternate;
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* Плавный блик */
+.ny-promo-block::after {
+    content: '';
+    position: absolute;
+    top: -50%; left: -100%; width: 50%; height: 200%;
+    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.6), transparent);
+    transform: rotate(25deg);
+    animation: sweepShine 8s infinite cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Гирлянда */
+.ny-garland {
+    position: absolute;
+    top: 0;
+    left: 5%;
+    right: 5%;
+    height: 2px;
+    background: #C79A55;
+    border-radius: 2px;
+    z-index: 5;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+.ny-garland::before {
+    content: '';
+    position: absolute;
+    top: -4px; left: 0; right: 0; height: 14px;
+    background-image: 
+        radial-gradient(circle, #FF4D4D 3px, transparent 4px),
+        radial-gradient(circle, #FFD700 3px, transparent 4px),
+        radial-gradient(circle, #4DFF4D 3px, transparent 4px),
+        radial-gradient(circle, #4D9AFF 3px, transparent 4px);
+    background-size: 60px 14px;
+    background-repeat: repeat-x;
+    background-position: 0px 0px, 15px 2px, 30px 0px, 45px 2px;
+    animation: blink 2s infinite alternate;
+    filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.8));
+}
+
+@keyframes twinkleBg {
+    0% { opacity: 0.3; filter: drop-shadow(0 0 2px #FFF); }
+    100% { opacity: 0.8; filter: drop-shadow(0 0 8px #E6C994); }
+}
+@keyframes sweepShine {
+    0% { left: -100%; }
+    20% { left: 200%; }
+    100% { left: 200%; }
+}
+@keyframes blink {
+    0% { opacity: 0.7; filter: drop-shadow(0 0 3px rgba(255, 215, 0, 0.4)); }
+    100% { opacity: 1; filter: drop-shadow(0 0 10px rgba(255, 77, 77, 0.9)) drop-shadow(0 0 6px rgba(255, 215, 0, 0.9)); }
+}
+
+.ny-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    position: relative;
+    z-index: 2;
+}
+
+.ny-text {
+    flex: 1;
+    max-width: 500px;
+}
+
+.ny-title {
+    font-size: 32px;
+    font-weight: 800;
+    color: #7E1F3B;
+    margin-bottom: 16px;
+    letter-spacing: -0.03em;
+}
+
+.ny-desc {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    margin-bottom: 28px;
+}
+
+.ny-image-wrap {
+    flex: 0 0 40%;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 12px 30px rgba(54, 28, 31, 0.15);
+    border: 1px solid rgba(199, 154, 85, 0.3);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
     display: block;
 }
-.hero-newyear-img:hover {
-    transform: translateY(-3px);
+
+.ny-image-wrap:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(92, 20, 43, 0.2);
 }
-.hero-newyear-img img {
+
+.ny-image-wrap img {
     width: 100%;
-    height: 110px;
+    height: 260px;
     object-fit: cover;
     display: block;
+}
+
+@media (max-width: 900px) {
+    .ny-promo-block {
+        padding: 30px 20px;
+        border-radius: 24px;
+        margin-top: 0;
+    }
+    .ny-content {
+        flex-direction: column-reverse;
+        text-align: center;
+        gap: 24px;
+    }
+    .ny-text { max-width: 100%; }
+    .ny-title { font-size: 24px; margin-bottom: 12px; }
+    .ny-desc { font-size: 14px; margin-bottom: 20px; }
+    .ny-image-wrap { flex: auto; width: 100%; }
+    .ny-image-wrap img { height: 200px; }
 }
 </style>
 
 <link rel="stylesheet" href="mobile-app.css">
 
-<!-- SEO: Микроразметка для поисковиков (LocalBusiness) -->
+<!-- SEO: Микроразметка -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -305,13 +422,19 @@
 
 <main>
 
+<!-- ГЛАВНЫЙ ЭКРАН -->
 <section class="hero-section" style="padding:112px 0 132px;position:relative;overflow:hidden;background:radial-gradient(circle at 84% 20%,rgba(240,91,118,.16),transparent 27%),radial-gradient(circle at 10% 90%,rgba(199,154,85,.11),transparent 28%),var(--cream)">
     <div class="container" style="display:grid;grid-template-columns:1.02fr .98fr;gap:86px;align-items:center;position:relative;z-index:1">
         <div class="hero-text-block">
             <div class="hero-tagline" style="display:inline-flex;align-items:center;gap:10px;padding:8px 15px;background:rgba(255,255,255,.56);border:1px solid rgba(166,141,130,.22);border-radius:999px;font-size:10px;font-weight:700;color:var(--mute);letter-spacing:.18em;text-transform:uppercase;margin-bottom:28px">Красноярск · ручная работа</div>
-            <!-- SEO: Добавили ключевое слово в H1 -->
             <h1 style="font-size:clamp(48px,6.3vw,82px);line-height:.98;margin:0 0 28px;font-weight:800;letter-spacing:-.065em;max-width:700px">Пиньяты, шары<br><span style="color:var(--brand)">и вязаный уют</span></h1>
-            <!-- БЛОК С ФОТО 3D.JPG И КНОПКОЙ -->
+            <p style="font-size:16px;line-height:1.8;color:var(--ink-soft);max-width:540px;margin:0 0 34px">Авторские изделия ручной работы для дней рождения, семейных праздников и особенных событий в Красноярске и по всей России.</p>
+            <div style="display:flex;flex-wrap:wrap;gap:12px">
+                <a class="btn btn-primary" href="catalog.html">Смотреть каталог</a>
+            </div>
+        </div>
+        
+        <!-- БЛОК С ФОТО 3D.JPG И КНОПКОЙ -->
         <div class="hero-card-block" style="position:relative;padding:14px;background:linear-gradient(145deg,rgba(255,255,255,.92),rgba(255,248,244,.72));border:1px solid rgba(166,141,130,.22);border-radius:34px;box-shadow:0 28px 70px rgba(54,28,31,.12);transform:rotate(2deg)">
             <a href="catalog.html" class="hero-new-link">
                 <img src="images/3d.jpg" alt="Пиньяты 3D ручной работы на заказ в Красноярске" class="hero-new-img">
@@ -320,28 +443,31 @@
                 </div>
             </a>
         </div>
-                       <p style="font-size:16px;line-height:1.8;color:var(--ink-soft);max-width:540px;margin:0 0 24px">Авторские изделия ручной работы для дней рождения, семейных праздников и особенных событий в Красноярске и по всей России.</p>
-            
-            <!-- КРАСИВЫЙ НОВОГОДНИЙ БАННЕР С ГИРЛЯНДОЙ -->
-            <div class="hero-newyear-block">
-                <div class="hero-newyear-garland"></div>
-                <div class="hero-newyear-title">🎄 Новогодние новинки</div>
-                <a href="catalog.html" class="hero-newyear-img">
-                    <img src="images/печенька.jpg" alt="Новогодняя пиньята печенька">
-                </a>
-            </div>
-
-            <!-- Кнопка -->
-            <div style="display:flex;flex-wrap:wrap;gap:12px;">
-                <a class="btn btn-primary" href="catalog.html">Смотреть каталог</a>
-            </div>
-        </div>
-
-        
-
     </div>
 </section>
 
+<!-- НОВОГОДНЯЯ СЕКЦИЯ С ГИРЛЯНДОЙ -->
+<section style="padding: 40px 0 20px; position: relative; z-index: 2;">
+    <div class="container">
+        <div class="ny-promo-block reveal">
+            <!-- Гирлянда -->
+            <div class="ny-garland"></div>
+            
+            <div class="ny-content">
+                <div class="ny-text">
+                    <h2 class="ny-title">🎄 Новогодние новинки</h2>
+                    <p class="ny-desc">Успейте заказать праздничные пиньяты! Пряничный домик, новогодняя печенька и другие фигуры создадут волшебную атмосферу на вашем празднике.</p>
+                    <a href="catalog.html" class="btn btn-primary">Смотреть новинки</a>
+                </div>
+                <a href="catalog.html" class="ny-image-wrap">
+                    <img src="images/печенька.jpg" alt="Пиньята новогодняя печенька" onerror="this.src='images/logo.png'">
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- БЛОК ПРИВЕТСТВИЯ -->
 <section class="welcome-section">
     <div class="welcome-topline"><span></span><i></i><span></span></div>
     <div class="container">
@@ -417,28 +543,21 @@
         </div>
         
         <div class="steps">
-            <!-- Шаг 1: Ведет к контактам -->
             <a href="#contacts" class="step reveal delay-1" style="display:block; text-decoration:none; color:inherit;">
                 <div class="step-number">01</div>
                 <h3>Свяжитесь с нами</h3>
                 <p>Оставьте заявку на сайте или напишите в WhatsApp / ВКонтакте — как удобнее</p>
             </a>
-            
-            <!-- Шаг 2: Ведет в каталог -->
             <a href="catalog.html" class="step reveal delay-2" style="display:block; text-decoration:none; color:inherit;">
                 <div class="step-number">02</div>
                 <h3>Выберите дизайн</h3>
                 <p>Пришлите пример или опишите свою идею</p>
             </a>
-            
-            <!-- Шаг 3 -->
             <div class="step reveal delay-3">
                 <div class="step-number">03</div>
                 <h3>Согласуем заказ</h3>
                 <p>Обсудим размер, оформление, цену и доставку</p>
             </div>
-            
-            <!-- Шаг 4 (Обновили текст) -->
             <div class="step reveal delay-4">
                 <div class="step-number">04</div>
                 <h3>Получаете пиньяту</h3>
