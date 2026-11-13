@@ -7,7 +7,7 @@
 <!-- SEO -->
 <title>Пиньяты на заказ в Красноярске — ручная работа | Пиньята Смята</title>
 <meta name="description" content="Заказать пиньяту в Красноярске. Авторские пиньяты, шары и 3D-фигуры ручной работы. Доставка и самовывоз Академгородок.">
-<meta name="keywords" content="пиньята красноярск, пиньяты красноярск, пиньяты академгородок, заказать пиньяту академгородок, шары, вязаные игрушки красноярск, ручная работа красноярск">
+<meta name="keywords" content="пиньята красноясрк, пиньяты красноярск, пиньяты академгородок, заказать пиньяту академгородок, шары, вязаные игрушки красноярск, ручная работа красноярск">
 <meta name="robots" content="index, follow">
 <link rel="icon" type="image/png" href="images/logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -329,6 +329,7 @@
         display: flex !important;
         flex-direction: column !important;
     }
+    
     .hero-card-block {
         max-width: 280px !important;
         margin: 0 auto 10px auto !important;
@@ -345,11 +346,13 @@
         font-size: 12px !important;
         border-radius: 10px !important;
     }
+
     .hero-text-block .btn {
         padding: 12px 20px !important;
         font-size: 12px !important;
         border-radius: 10px !important;
     }
+
     .welcome-section {
         padding: 40px 0 60px;
         margin-top: 0;
@@ -434,7 +437,7 @@
             <a href="#contacts">Контакты</a>
         </nav>
         <button class="menu-toggle" id="menuToggle" type="button" aria-label="Открыть меню"><span></span><span></span><span></span></button>
-        <button class="btn btn-primary btn-small" type="button" onclick="openOrder()">Заказать</button>
+        <button class="btn btn-primary btn-small" onclick="openOrder()">Заказать</button>
     </div>
 </header>
 
@@ -453,27 +456,26 @@
 
 <!-- ГЛАВНЫЙ ЭКРАН -->
 <section class="hero-section" style="padding:112px 0 60px;position:relative;overflow:hidden;background:radial-gradient(circle at 84% 20%,rgba(240,91,118,.16),transparent 27%),radial-gradient(circle at 10% 90%,rgba(199,154,85,.11),transparent 28%),var(--cream)">
-    <div class="container" style="display:grid;grid-template-columns:1.02fr .98fr;gap:clamp(32px,6vw,86px);align-items:center;position:relative;z-index:1">
-        <div class="hero-text-block" style="min-width:0">
+    <div class="container" style="display:grid;grid-template-columns:1.02fr .98fr;gap:86px;align-items:center;position:relative;z-index:1">
+        <div class="hero-text-block">
             <div class="hero-tagline" style="display:inline-flex;align-items:center;gap:10px;padding:8px 15px;background:rgba(255,255,255,.56);border:1px solid rgba(166,141,130,.22);border-radius:999px;font-size:10px;font-weight:700;color:var(--mute);letter-spacing:.18em;text-transform:uppercase;margin-bottom:28px">Красноярск · ручная работа</div>
-
-            <h1 style="font-size:clamp(36px,5.6vw,78px);line-height:1.02;margin:0 0 22px;font-weight:800;letter-spacing:-.055em;max-width:700px">Пиньяты, шары<br><span style="color:var(--brand)">и вязаный уют</span></h1>
-
-            <p style="font-size:16px;line-height:1.8;color:var(--ink-soft);max-width:540px;margin:0 0 16px">
-                Авторские изделия ручной работы для дней рождения, семейных праздников и особенных событий в Красноярске.
+            <h1 style="font-size:clamp(48px,6.3vw,82px);line-height:.98;margin:0 0 28px;font-weight:800;letter-spacing:-.065em;max-width:700px">Пиньяты, шары<br><span style="color:var(--brand)">и вязаный уют</span></h1>
+            
+            <!-- ОБНОВЛЕННЫЙ ТЕКСТ С ВЫДЕЛЕНИЕМ СРОКОВ -->
+            <p style="font-size:16px;line-height:1.8;color:var(--ink-soft);max-width:540px;margin:0 0 24px">
+                Авторские изделия ручной работы для дней рождения, семейных праздников и особенных событий в Красноярске.<br>
+                <span style="display:inline-block; margin-top:10px; padding:6px 14px; background:rgba(165, 47, 82, 0.08); color:var(--brand); border-radius:8px; font-weight:800; font-size:14.5px;">⏳ Срок изготовления 2-4 дня. Срочные заказы обсудим индивидуально.</span>
             </p>
-
-            <div style="display:inline-block;padding:8px 16px;background:rgba(165,47,82,.08);color:var(--brand);border-radius:10px;font-weight:800;font-size:14.5px;line-height:1.4;margin-bottom:26px">⏳ Срок изготовления 2-4 дня. Срочные заказы обсудим индивидуально.</div>
-
+            
             <div style="display:flex;flex-wrap:wrap;gap:12px">
                 <a class="btn btn-primary" href="catalog.html">Смотреть каталог</a>
             </div>
         </div>
-  
+        
         <!-- БЛОК С ФОТО 3D.JPG И КНОПКОЙ -->
         <div class="hero-card-block" style="position:relative;padding:14px;background:linear-gradient(145deg,rgba(255,255,255,.92),rgba(255,248,244,.72));border:1px solid rgba(166,141,130,.22);border-radius:34px;box-shadow:0 28px 70px rgba(54,28,31,.12);transform:rotate(2deg)">
             <a href="catalog.html" class="hero-new-link">
-                <img src="images/3d.jpg" alt="Пиньяты ручной работы на заказ в Красноярске" class="hero-new-img">
+                <img src="images/3d.jpg" alt="Пиньяты 3D ручной работы на заказ в Красноярске" class="hero-new-img">
                 <div class="hero-new-btn">
                     <span>Заказать свою пиньяту</span>
                 </div>
@@ -492,7 +494,8 @@
             <div class="ny-content">
                 <div class="ny-text">
                     <h2 class="ny-title">🎄 Новогодние новинки</h2>
-                    <p class="ny-desc">Украшайте дом этим волшебным декором, а затем разбивайте его на счастье! Наша фишка: спрячем внутрь милую игрушку ручной работы, которая останется после праздника. </p>
+                    <!-- ОБНОВЛЕННЫЙ ТЕКСТ -->
+                    <p class="ny-desc">Украшайте дом этим волшебным декором, а затем разбивайте его на счастье! Наша фишка: спрячем внутрь милую игрушку ручной работы, которая останется после праздника.</p>
                     <a href="catalog.html" class="btn btn-primary">Смотреть новинки</a>
                 </div>
                 <a href="catalog.html" class="ny-image-wrap">
@@ -618,7 +621,7 @@
         <div class="reveal">
             <div class="section-eyebrow">Свяжитесь с нами</div>
             <h2>Создадим ваш <span class="accent">праздник?</span></h2>
-            <p style="margin-bottom:26px">Расскажем о сроках и поможем реализовать вашу идею.</p>
+            <p style="margin-bottom:26px">Расскажем о сроках и поможем выбрать.</p>
             <div class="contact-item"><span class="label">Телефон</span><a href="tel:+79095415959">+7 909 541-59-59</a></div>
             <div class="contact-item"><span class="label">WhatsApp</span><a href="https://wa.me/79095415959" target="_blank" rel="noopener">написать</a></div>
             <div class="contact-item"><span class="label">ВКонтакте</span><a href="https://vk.ru/pinyatasmyata" target="_blank" rel="noopener">vk.ru/pinyatasmyata</a></div>
@@ -807,22 +810,22 @@
     </div>
     <div class="container footer-bottom">
         <div>© 2026 Пиньята Смята</div>
-        <div class="credit">Красноярск · <button class="admin-toggle" type="button" onclick="toggleAdmin()">Админ</button></div>
+        <div class="credit">Красноярск · <button class="admin-toggle" onclick="toggleAdmin()">Админ</button></div>
     </div>
 </footer>
 
 <!-- МОДАЛКА ЗАЯВКИ -->
 <div class="modal-bg" id="orderModal">
     <div class="modal" role="dialog">
-        <button class="modal-close" type="button" onclick="closeOrder()" aria-label="Закрыть">×</button>
+        <button class="modal-close" onclick="closeOrder()" aria-label="Закрыть">×</button>
         <h2>Оставить <span class="accent">заявку</span></h2>
         <p class="modal-sub">Заполните форму — свяжемся с вами</p>
         <div class="form-field"><label for="orderName">Ваше имя *</label><input id="orderName" type="text" placeholder="Как к вам обращаться"></div>
         <div class="form-field"><label for="orderPhone">Телефон *</label><input id="orderPhone" type="tel" placeholder="+7 ___ ___-__-__"></div>
         <div class="form-field"><label for="orderProduct">Что хотите заказать</label><input id="orderProduct" type="text" placeholder="Например: пиньята-цифра «1»"></div>
-        <div class="form-field"><label for="orderDate">Дата праздника</label><input id="orderDate" type="date"></div>
+        <div class="form-field"><label for="orderDate">Дата праздника</label><input id="orderDate" type="date" min=""></div>
         <div class="form-field"><label for="orderComment">Комментарий</label><textarea id="orderComment" placeholder="Цвет, размер, форма, ваша идея"></textarea></div>
-        <button class="btn btn-primary" id="orderBtn" type="button" onclick="submitOrder()">Отправить заявку</button>
+        <button class="btn btn-primary" id="orderBtn" onclick="submitOrder()">Отправить заявку</button>
         <div class="form-status" id="orderStatus"></div>
         <div class="modal-divider">или напишите нам</div>
         <div class="modal-alt">
@@ -835,7 +838,7 @@
 <!-- МОДАЛКА ОТЗЫВА -->
 <div class="modal-bg" id="reviewModal">
     <div class="modal" role="dialog">
-        <button class="modal-close" type="button" onclick="closeReview()" aria-label="Закрыть">×</button>
+        <button class="modal-close" onclick="closeReview()" aria-label="Закрыть">×</button>
         <h2>Оставить <span class="accent">отзыв</span></h2>
         <p class="modal-sub">Поделитесь впечатлением — отзыв сразу появится на сайте</p>
         <div class="form-field">
@@ -863,7 +866,7 @@
             </div>
             <p class="form-hint">Фото автоматически сожмётся. Показывается всем сразу.</p>
         </div>
-        <button class="btn btn-primary" id="reviewBtn" type="button" onclick="submitReview()">Отправить отзыв</button>
+        <button class="btn btn-primary" id="reviewBtn" onclick="submitReview()">Отправить отзыв</button>
         <div class="form-status" id="reviewStatus"></div>
     </div>
 </div>
@@ -871,7 +874,7 @@
 <!-- МОДАЛКА РУЧНОГО ОТЗЫВА -->
 <div class="modal-bg" id="manualReviewModal">
     <div class="modal" role="dialog">
-        <button class="modal-close" type="button" onclick="closeManualReview()" aria-label="Закрыть">×</button>
+        <button class="modal-close" onclick="closeManualReview()" aria-label="Закрыть">×</button>
         <h2>Добавить <span class="accent">отзыв</span></h2>
         <p class="modal-sub">Для отзывов из соцсетей — они сразу публикуются</p>
         <div class="form-field">
@@ -907,7 +910,7 @@
                 <button type="button" onclick="clearManualPhoto()">×</button>
             </div>
         </div>
-        <button class="btn btn-primary" id="manualBtn" type="button" onclick="submitManualReview()">Опубликовать</button>
+        <button class="btn btn-primary" id="manualBtn" onclick="submitManualReview()">Опубликовать</button>
         <div class="form-status" id="manualStatus"></div>
     </div>
 </div>
@@ -1101,7 +1104,7 @@ function renderPreview() {
 
         return '' +
         '<div class="admin-row" data-id="' + esc(p.id) + '">' +
-            '<div class="admin-row__thumb"><img src="' + esc(p.image || 'images/logo.png') + '" alt="" onerror="this.style.background=\'#E9D9D2\'"></div>' +
+            '<div class="admin-row__thumb"><img src="' + esc(p.image) + '" alt="" onerror="this.style.background=\'#E9D9D2\'"></div>' +
             '<div class="admin-row__info">' +
                 '<input class="ar-input ar-input--title" type="text" value="' + esc(p.name) + '" placeholder="Название" ' +
                     'onblur="saveField(\'' + esc(p.id) + '\',\'name\',this.value)">' +
@@ -1405,15 +1408,13 @@ document.addEventListener('keydown', function (e) {
 bindPhotoInput('manualPhoto', 'manualPhotoPreview', 'manualPhotoImg', v => manualPhotoData = v);
 bindPhotoInput('productImage', 'productPhotoPreview', 'productPhotoImg', v => productPhotoData = v);
 
-/* мин. дата для поля «Дата праздника» — сегодня */
-(function setOrderDateMin() {
-    const el = document.getElementById('orderDate');
-    if (!el) return;
-    const d = new Date();
-    const y = d.getFullYear();
-    const m = String(d.getMonth() + 1).padStart(2, '0');
-    const day = String(d.getDate()).padStart(2, '0');
-    el.min = y + '-' + m + '-' + day;
+(function bindPriceTypeToggle() {
+    const sel = document.getElementById('productPriceType');
+    const toEl = document.getElementById('productPriceTo');
+    if (!sel || !toEl) return;
+    sel.addEventListener('change', () => {
+        toEl.style.display = (sel.value === 'range') ? 'block' : 'none';
+    });
 })();
 
 onMainCategoryChange();
