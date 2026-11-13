@@ -453,20 +453,23 @@
 
 <!-- ГЛАВНЫЙ ЭКРАН -->
 <section class="hero-section" style="padding:112px 0 60px;position:relative;overflow:hidden;background:radial-gradient(circle at 84% 20%,rgba(240,91,118,.16),transparent 27%),radial-gradient(circle at 10% 90%,rgba(199,154,85,.11),transparent 28%),var(--cream)">
-    <div class="container" style="display:grid;grid-template-columns:1.02fr .98fr;gap:86px;align-items:center;position:relative;z-index:1">
-        <div class="hero-text-block">
+    <div class="container" style="display:grid;grid-template-columns:1.02fr .98fr;gap:clamp(32px,6vw,86px);align-items:center;position:relative;z-index:1">
+        <div class="hero-text-block" style="min-width:0">
             <div class="hero-tagline" style="display:inline-flex;align-items:center;gap:10px;padding:8px 15px;background:rgba(255,255,255,.56);border:1px solid rgba(166,141,130,.22);border-radius:999px;font-size:10px;font-weight:700;color:var(--mute);letter-spacing:.18em;text-transform:uppercase;margin-bottom:28px">Красноярск · ручная работа</div>
-            <h1 style="font-size:clamp(48px,6.3vw,82px);line-height:.98;margin:0 0 28px;font-weight:800;letter-spacing:-.065em;max-width:700px">Пиньяты, шары<br><span style="color:var(--brand)">и вязаный уют</span></h1>
-            <p style="font-size:16px;line-height:1.8;color:var(--ink-soft);max-width:540px;margin:0 0 24px">
-                Авторские изделия ручной работы для дней рождения, семейных праздников и особенных событий в Красноярске.<br>
-                <span style="display:inline-block; margin-top:10px; padding:6px 14px; background:rgba(165, 47, 82, 0.08); color:var(--brand); border-radius:8px; font-weight:800; font-size:14.5px;">⏳ Срок изготовления 2-4 дня. Срочные заказы обсудим индивидуально.</span>
+
+            <h1 style="font-size:clamp(36px,5.6vw,78px);line-height:1.02;margin:0 0 22px;font-weight:800;letter-spacing:-.055em;max-width:700px">Пиньяты, шары<br><span style="color:var(--brand)">и вязаный уют</span></h1>
+
+            <p style="font-size:16px;line-height:1.8;color:var(--ink-soft);max-width:540px;margin:0 0 16px">
+                Авторские изделия ручной работы для дней рождения, семейных праздников и особенных событий в Красноярске.
             </p>
-            
+
+            <div style="display:inline-block;padding:8px 16px;background:rgba(165,47,82,.08);color:var(--brand);border-radius:10px;font-weight:800;font-size:14.5px;line-height:1.4;margin-bottom:26px">⏳ Срок изготовления 2-4 дня. Срочные заказы обсудим индивидуально.</div>
+
             <div style="display:flex;flex-wrap:wrap;gap:12px">
                 <a class="btn btn-primary" href="catalog.html">Смотреть каталог</a>
             </div>
         </div>
-
+  
         <!-- БЛОК С ФОТО 3D.JPG И КНОПКОЙ -->
         <div class="hero-card-block" style="position:relative;padding:14px;background:linear-gradient(145deg,rgba(255,255,255,.92),rgba(255,248,244,.72));border:1px solid rgba(166,141,130,.22);border-radius:34px;box-shadow:0 28px 70px rgba(54,28,31,.12);transform:rotate(2deg)">
             <a href="catalog.html" class="hero-new-link">
