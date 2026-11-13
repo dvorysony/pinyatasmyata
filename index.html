@@ -246,9 +246,19 @@
                 <a class="btn btn-primary" href="catalog.html">Смотреть каталог</a>
             </div>
         </div>
+        
+        <!-- ИЗМЕНЕННЫЙ БЛОК -->
         <div class="hero-card-block" style="position:relative;padding:14px;background:linear-gradient(145deg,rgba(255,255,255,.92),rgba(255,248,244,.72));border:1px solid rgba(166,141,130,.22);border-radius:34px;box-shadow:0 28px 70px rgba(54,28,31,.12);transform:rotate(2deg)">
-            <img src="images/logo.png" alt="Пиньята Смята" style="width:100%;max-height:500px;object-fit:contain;border-radius:24px">
+            <!-- Картинка для компьютера -->
+            <img src="images/logo.png" alt="Пиньята Смята" class="hero-desktop-logo" style="width:100%;max-height:500px;object-fit:contain;border-radius:24px">
+            
+            <!-- Кнопка для телефона -->
+            <a href="catalog.html?cat=pinyaty" class="hero-mobile-cta">
+                <span class="hero-mobile-cta__title">Заказать 3D пиньяту</span>
+                <span class="hero-mobile-cta__price">от 2 500 ₽</span>
+            </a>
         </div>
+
     </div>
 </section>
 
