@@ -202,6 +202,42 @@
     .welcome-item__content { gap: 12px; }
     .welcome-item__icon { width: 42px; height: 42px; font-size: 20px; }
 }
+
+/* Стили для новогодних новинок в Hero */
+.hero-newyear-block {
+    margin: 24px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.hero-newyear-title {
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--brand);
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+.hero-newyear-grid {
+    display: flex;
+    gap: 12px;
+}
+.hero-newyear-img {
+    flex: 1;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+    transition: transform 0.3s;
+    display: block;
+}
+.hero-newyear-img:hover {
+    transform: translateY(-3px);
+}
+.hero-newyear-img img {
+    width: 100%;
+    height: 110px;
+    object-fit: cover;
+    display: block;
+}
 </style>
 
 <link rel="stylesheet" href="mobile-app.css">
@@ -275,7 +311,22 @@
             <div class="hero-tagline" style="display:inline-flex;align-items:center;gap:10px;padding:8px 15px;background:rgba(255,255,255,.56);border:1px solid rgba(166,141,130,.22);border-radius:999px;font-size:10px;font-weight:700;color:var(--mute);letter-spacing:.18em;text-transform:uppercase;margin-bottom:28px">Красноярск · ручная работа</div>
             <!-- SEO: Добавили ключевое слово в H1 -->
             <h1 style="font-size:clamp(48px,6.3vw,82px);line-height:.98;margin:0 0 28px;font-weight:800;letter-spacing:-.065em;max-width:700px">Пиньяты, шары<br><span style="color:var(--brand)">и вязаный уют</span></h1>
-            <p style="font-size:16px;line-height:1.8;color:var(--ink-soft);max-width:540px;margin:0 0 34px">Авторские изделия ручной работы для дней рождения, семейных праздников и особенных событий в Красноярске и по всей России.</p>
+            <p style="font-size:16px;line-height:1.8;color:var(--ink-soft);max-width:540px;margin:0 0 24px">Авторские изделия ручной работы для дней рождения, семейных праздников и особенных событий в Красноярске и по всей России.</p>
+            
+                       <!-- КРАСИВЫЙ БЛОК С НОВОГОДНИМИ НОВИНКАМИ -->
+            <div class="hero-newyear-block">
+                <div class="hero-newyear-title">🎄 Новогодние новинки</div>
+                <div class="hero-newyear-grid">
+                    <a href="catalog.html" class="hero-newyear-img">
+                        <img src="images/печенька.jpg" alt="Пиньята-печенька" onerror="this.style.display='none'">
+                    </a>
+                    <a href="catalog.html" class="hero-newyear-img">
+                        <img src="images/домик.jpg" alt="Пиньята-домик" onerror="this.style.display='none'">
+                    </a>
+                </div>
+            </div>
+
+            <!-- Кнопка под новинками -->
             <div style="display:flex;flex-wrap:wrap;gap:12px">
                 <a class="btn btn-primary" href="catalog.html">Смотреть каталог</a>
             </div>
@@ -390,11 +441,11 @@
                 <p>Обсудим размер, оформление, цену и доставку</p>
             </div>
             
-            <!-- Шаг 4 -->
+            <!-- Шаг 4 (Обновили текст) -->
             <div class="step reveal delay-4">
                 <div class="step-number">04</div>
                 <h3>Получаете пиньяту</h3>
-                <p>Готовим заказ к празднику — заберёте сами или отправим</p>
+                <p>Доставка Академгородок или отправим Яндекс такси по всему городу.</p>
             </div>
         </div>
 
