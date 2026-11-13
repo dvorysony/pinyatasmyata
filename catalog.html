@@ -97,23 +97,18 @@
 }
 
 @media (max-width: 900px) {
-    /* Уменьшаем шапку на мобильном */
     .page-hero { padding: 30px 0 20px !important; }
     .page-hero h1 { font-size: 28px !important; margin-bottom: 10px !important; }
     .page-hero p { font-size: 13px !important; }
     .page-hero .section-eyebrow { margin-bottom: 10px !important; }
-    
-    /* Показываем фильтр */
     .mobile-filter-wrap { display: block; }
-    
-    /* Делаем баннер вертикальным */
     .surprise-banner {
         flex-direction: column;
         text-align: center;
-        padding: 24px 20px;
-        gap: 16px;
+        padding: 24px 20px !important;
+        gap: 16px !important;
     }
-    .surprise-banner__text { font-size: 14px; }
+    .surprise-banner__text { font-size: 14px !important; }
     .surprise-banner .btn { width: 100%; }
 }
 </style>
@@ -274,19 +269,19 @@
 <script>
 let cache = [];
 let activeMainCategory = 'pinyaty';
-let activeSubCategory = 'all';
-let mobileStockOnly = false; // Переменная для фильтра на мобильном
+// 👇 ВОТ ЗДЕСЬ МЕНЯЕМ 'all' на 'newyear'
+let activeSubCategory = 'newyear'; 
+let mobileStockOnly = false;
 
 const MAIN_CATEGORIES = [
     { key: 'pinyaty', label: 'Пиньяты' },
     { key: 'balls',   label: 'Шары' }
 ];
 
-// Добавили Новогоднюю коллекцию
 const SUB_CATEGORIES = {
     pinyaty: [
-        { key: 'all',     label: 'Все пиньяты' },
         { key: 'newyear', label: '🎄 Новогодняя коллекция' },
+        { key: 'all',     label: 'Все пиньяты' },
         { key: 'shar',    label: 'Пиньята-шар' },
         { key: '3d',      label: '3D-фигуры' },
         { key: 'cifry',   label: 'Цифры' },
@@ -317,7 +312,6 @@ function renderCategories() {
         return '<button class="cat-btn cat-btn-main' + a + '" type="button" onclick="setMainCategory(\'' + c.key + '\')">' + c.label + '</button>';
     }).join('');
 
-    // УБРАЛИ ССЫЛКУ НА ВЯЗАНЫЕ ИЗДЕЛИЯ
     mainBox.innerHTML = mainHTML;
 
     if (activeMainCategory === 'pinyaty') {
@@ -335,7 +329,13 @@ function renderCategories() {
 
 function setMainCategory(key) {
     activeMainCategory = key;
-    activeSubCategory = 'all';
+    // Если переключились на Шары, то подкатегория сбрасывается на "все"
+    if (key !== 'pinyaty') {
+        activeSubCategory = 'all';
+    } else {
+        // Если вернулись на Пиньяты, то можно снова открыть Новогодние (или оставить all, как вам удобнее)
+        activeSubCategory = 'newyear';
+    }
     renderCategories();
     renderCatalog();
 }
@@ -383,11 +383,9 @@ function renderCatalog() {
     let inStock = products.filter(p => p.inStock);
     let examples = products.filter(p => !p.inStock);
 
-    // ЛОГИКА МОБИЛЬНОГО ФИЛЬТРА
     const isMobile = window.matchMedia('(max-width: 900px)').matches;
     
     if (isMobile && mobileStockOnly) {
-        // Если на телефоне нажали "Только в наличии", показываем только их на весь экран
         sidebar.style.display = 'none';
         layout.classList.add('no-stock');
         if (!inStock.length) {
@@ -399,7 +397,6 @@ function renderCatalog() {
         return;
     }
 
-    // Обычная логика (для ПК или если фильтр выключен)
     if (inStock.length) {
         sidebar.style.display = 'block';
         layout.classList.remove('no-stock');
@@ -444,6 +441,7 @@ async function loadCatalog() {
     const cat = params.get('cat');
     if (cat && MAIN_CATEGORIES.some(c => c.key === cat)) {
         activeMainCategory = cat;
+        if (cat === 'balls') activeSubCategory = 'all';
     }
 })();
 
