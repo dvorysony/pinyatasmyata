@@ -1141,80 +1141,60 @@ body.no-bottom-nav footer { padding-bottom: 20px !important; }
 }
 
 /* =========================================================
-   МОБИЛЬНЫЙ HERO CTA (вместо логотипа на телефоне)
+   НОВЫЙ HERO-БЛОК (ФОТО + КНОПКА)
    ========================================================= */
-.hero-mobile-cta {
-    display: none;
+.hero-new-link {
+    display: block;
+    text-decoration: none;
+    border-radius: 24px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+    transition: transform 0.4s cubic-bezier(.16,1,.3,1), box-shadow 0.4s;
 }
 
+.hero-new-link:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(92, 20, 43, 0.15);
+}
+
+.hero-new-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 24px 24px 0 0;
+    object-fit: cover;
+}
+
+.hero-new-btn {
+    background: linear-gradient(180deg, #7E1F3B 0%, #5C142B 100%);
+    color: #FBF3E8;
+    padding: 24px 20px;
+    text-align: center;
+    font-weight: 800;
+    font-size: 16px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border-top: 1px solid rgba(199, 154, 85, 0.5);
+    transition: background 0.3s ease;
+    position: relative;
+}
+
+.hero-new-link:hover .hero-new-btn {
+    background: linear-gradient(180deg, #8F2647 0%, #6A1830 100%);
+}
+
+/* Настраиваем под мобилку */
 @media (max-width: 900px) {
-    /* Убираем рамки и повороты у карточки на мобильном */
     .hero-card-block {
-        background: transparent !important;
-        border: none !important;
-        box-shadow: none !important;
-        padding: 0 !important;
         transform: none !important;
-        width: 100% !important;
+        padding: 10px !important;
+        border-radius: 24px !important;
+        margin-bottom: 10px;
     }
     
-    /* Скрываем логотип на мобильном */
-    .hero-desktop-logo {
-        display: none;
-    }
-
-    /* Показываем премиальную кнопку */
-    .hero-mobile-cta {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        width: 100%;
-        box-sizing: border-box;
-        background: linear-gradient(180deg, #7E1F3B 0%, #5C142B 100%);
-        color: #FBF3E8;
-        border: 1px solid rgba(199, 154, 85, .35);
-        border-radius: 24px;
-        padding: 36px 24px;
-        box-shadow: 
-            0 1px 0 rgba(255, 255, 255, .16) inset,
-            0 16px 40px rgba(92, 20, 43, .25);
-        text-decoration: none;
-        position: relative;
-        overflow: hidden;
-        transition: transform .3s, box-shadow .3s;
-    }
-    
-    .hero-mobile-cta::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(180deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, 0));
-        pointer-events: none;
-    }
-
-    .hero-mobile-cta:active {
-        transform: scale(.97);
-    }
-
-    .hero-mobile-cta__title {
-        font-size: 22px;
-        font-weight: 800;
-        letter-spacing: -.02em;
-        margin-bottom: 8px;
-        line-height: 1.2;
-        position: relative;
-        z-index: 1;
-    }
-
-    .hero-mobile-cta__price {
-        font-size: 15px;
-        font-weight: 700;
-        color: #E6C994; /* Золотой цвет */
-        letter-spacing: .08em;
-        text-transform: uppercase;
-        position: relative;
-        z-index: 1;
+    .hero-new-btn {
+        font-size: 14.5px;
+        padding: 18px 12px;
     }
 }
