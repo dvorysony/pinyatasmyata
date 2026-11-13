@@ -1139,3 +1139,76 @@ body.no-bottom-nav footer { padding-bottom: 20px !important; }
     .footer-brand img { width: 42px; height: 42px; }
     .footer-brand .name { font-size: 15px; }
 }
+
+/* =========================================================
+   МОБИЛЬНЫЙ HERO CTA (вместо логотипа на телефоне)
+   ========================================================= */
+.hero-mobile-cta {
+    display: none;
+}
+
+@media (max-width: 900px) {
+    /* Убираем рамки и повороты у карточки на мобильном */
+    .hero-card-block {
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        transform: none !important;
+        margin-bottom: 20px;
+    }
+    
+    /* Скрываем логотип на мобильном */
+    .hero-desktop-logo {
+        display: none;
+    }
+
+    /* Показываем премиальную кнопку */
+    .hero-mobile-cta {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        background: linear-gradient(180deg, #7E1F3B 0%, #5C142B 100%);
+        color: #FBF3E8;
+        border: 1px solid rgba(199, 154, 85, .35);
+        border-radius: 20px;
+        padding: 24px 20px;
+        box-shadow: 
+            0 1px 0 rgba(255, 255, 255, .16) inset,
+            0 12px 30px rgba(92, 20, 43, .3);
+        text-decoration: none;
+        position: relative;
+        overflow: hidden;
+        transition: transform .3s, box-shadow .3s;
+    }
+    
+    .hero-mobile-cta::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, rgba(255, 255, 255, .12), rgba(255, 255, 255, 0));
+        pointer-events: none;
+    }
+
+    .hero-mobile-cta:active {
+        transform: scale(.97);
+    }
+
+    .hero-mobile-cta__title {
+        font-size: 20px;
+        font-weight: 800;
+        letter-spacing: -.02em;
+        margin-bottom: 6px;
+        line-height: 1.2;
+    }
+
+    .hero-mobile-cta__price {
+        font-size: 15px;
+        font-weight: 700;
+        color: #E6C994; /* Золотой цвет */
+        letter-spacing: .08em;
+        text-transform: uppercase;
+    }
+}
