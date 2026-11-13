@@ -1387,16 +1387,15 @@ body {
     opacity: 1;
 }
 /* =========================================================
-   БЛОК НОВОГОДНИХ НОВИНОК
+   БЛОК НОВОГОДНИХ НОВИНОК (ОДНО ФОТО) С МАГИЧЕСКИМИ БЛИКАМИ
    ========================================================= */
 
 .hero-newyear-block {
     margin: 32px 0 24px;
     display: flex;
     flex-direction: column;
-    gap: 16px;
     position: relative;
-    padding: 28px 20px 20px;
+    padding: 12px; /* Уменьшили отступ, чтобы фото было крупнее */
     border-radius: 24px;
     overflow: hidden;
     z-index: 1;
@@ -1432,7 +1431,7 @@ body {
     content: '';
     position: absolute;
     top: -50%; left: -100%; width: 50%; height: 200%;
-    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.7), transparent);
+    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.6), transparent);
     transform: rotate(25deg);
     animation: sweepShine 7s infinite cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 0;
@@ -1450,56 +1449,33 @@ body {
     100% { left: 200%; }
 }
 
-/* Контент поверх бликов */
-.hero-newyear-title, .hero-newyear-grid {
-    position: relative;
-    z-index: 2;
-}
-
-.hero-newyear-title {
-    font-size: 11px;
-    font-weight: 800;
-    color: #7E1F3B;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.hero-newyear-title::after {
-    content: '';
-    height: 1px;
-    flex: 1;
-    background: linear-gradient(90deg, rgba(199, 154, 85, 0.4), transparent);
-}
-
+/* Контейнер для фото */
 .hero-newyear-grid {
     display: flex;
-    gap: 14px;
+    gap: 0;
+    position: relative;
+    z-index: 2;
 }
 
 .hero-newyear-img {
     flex: 1;
     border-radius: 16px;
     overflow: hidden;
-    box-shadow: 0 4px 15px rgba(54, 28, 31, 0.08);
+    box-shadow: 0 4px 15px rgba(54, 28, 31, 0.1);
     transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
     display: block;
     border: 1px solid rgba(166, 141, 130, 0.15);
-    position: relative;
-    z-index: 2;
 }
 
 .hero-newyear-img:hover {
-    transform: translateY(-4px) scale(1.02);
-    box-shadow: 0 12px 25px rgba(92, 20, 43, 0.15);
+    transform: scale(1.02);
+    box-shadow: 0 8px 25px rgba(92, 20, 43, 0.15);
 }
 
-/* Увеличили высоту, так как фото осталось одно */
+/* Размер самого фото */
 .hero-newyear-img img {
     width: 100%;
-    height: 180px; 
+    height: 220px; /* Сделали повыше, так как оно одно */
     object-fit: cover;
     object-position: center;
     display: block;
@@ -1508,9 +1484,9 @@ body {
 @media (max-width: 900px) {
     .hero-newyear-block {
         margin: 24px 0 18px;
-        padding: 24px 16px 16px;
+        padding: 8px;
     }
     .hero-newyear-img img {
-        height: 140px; /* Чуть меньше на мобильном */
+        height: 160px; /* На телефоне чуть ниже */
     }
 }
