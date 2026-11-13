@@ -612,3 +612,54 @@ body.no-bottom-nav footer { padding-bottom: 20px !important; }
     .hero-card-block { transform: none !important; padding: 10px !important; border-radius: 24px !important; margin-bottom: 10px; }
     .hero-new-btn { font-size: 14.5px; padding: 18px 12px; }
 }
+/* =========================================================
+   ФИЛЬТР В КАТАЛОГЕ И БАННЕР
+   ========================================================= */
+.mobile-filter-wrap {
+    display: none;
+    margin-bottom: 20px;
+}
+.mobile-stock-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 14px;
+    background: rgba(255, 252, 249, 0.7);
+    border: 1px solid rgba(199, 154, 85, 0.4);
+    border-radius: 14px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    color: #6B4E2B;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.mobile-stock-btn.active {
+    background: #4f7544;
+    color: #fff;
+    border-color: #4f7544;
+    box-shadow: 0 4px 12px rgba(79, 117, 68, 0.3);
+}
+.mobile-stock-btn svg {
+    width: 18px; height: 18px;
+}
+
+@media (max-width: 900px) {
+    .page-hero { padding: 30px 0 20px !important; }
+    .page-hero h1 { font-size: 28px !important; margin-bottom: 10px !important; }
+    .page-hero p { font-size: 13px !important; }
+    .page-hero .section-eyebrow { margin-bottom: 10px !important; }
+    
+    .mobile-filter-wrap { display: block; }
+    
+    .surprise-banner {
+        flex-direction: column;
+        text-align: center;
+        padding: 24px 20px !important;
+        gap: 16px !important;
+    }
+    .surprise-banner__text { font-size: 14px !important; }
+    .surprise-banner .btn { width: 100%; }
+}
