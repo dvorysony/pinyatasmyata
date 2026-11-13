@@ -1386,3 +1386,131 @@ body {
     transform: translateY(-50%) translateX(4px);
     opacity: 1;
 }
+/* =========================================================
+   БЛОК НОВОГОДНИХ НОВИНОК С ГИРЛЯНДОЙ
+   ========================================================= */
+
+.hero-newyear-block {
+    margin: 32px 0 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: relative;
+    padding: 32px 20px 20px; /* Увеличили отступ сверху для гирлянды */
+    
+    /* Мягкий праздничный фон */
+    background: linear-gradient(135deg, rgba(255, 252, 249, 0.9), rgba(253, 246, 240, 0.9));
+    border-radius: 24px;
+    border: 1px solid rgba(199, 154, 85, 0.3);
+    box-shadow: 0 8px 30px rgba(54, 28, 31, 0.04), inset 0 0 40px rgba(255, 255, 255, 0.8);
+    overflow: hidden;
+}
+
+/* 1. Провод гирлянды */
+.hero-newyear-block::before {
+    content: '';
+    position: absolute;
+    top: 16px;
+    left: 5%;
+    width: 90%;
+    height: 1px;
+    background: rgba(199, 154, 85, 0.4);
+    z-index: 1;
+}
+
+/* 2. Мерцающие огоньки (Лампочки) */
+.hero-newyear-block::after {
+    content: '';
+    position: absolute;
+    top: 6px;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    /* Рисуем цветные точки через градиенты */
+    background-image: 
+        radial-gradient(circle, #FFD700 3px, transparent 4px),
+        radial-gradient(circle, #FF4D4D 3px, transparent 4px),
+        radial-gradient(circle, #4DFF4D 3px, transparent 4px),
+        radial-gradient(circle, #4D9AFF 3px, transparent 4px);
+    background-size: 48px 20px;
+    background-repeat: repeat-x;
+    background-position: 0px 0px, 12px 2px, 24px 0px, 36px 2px;
+    
+    /* Анимация свечения */
+    animation: twinkle 1.8s infinite alternate ease-in-out;
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* Анимация мерцания */
+@keyframes twinkle {
+    0% { 
+        opacity: 0.5; 
+        filter: drop-shadow(0 0 1px #FFD700); 
+    }
+    100% { 
+        opacity: 1; 
+        filter: drop-shadow(0 0 6px #FFD700) drop-shadow(0 0 4px #FF4D4D); 
+    }
+}
+
+/* Контент поверх гирлянды */
+.hero-newyear-title, .hero-newyear-grid {
+    position: relative;
+    z-index: 3;
+}
+
+.hero-newyear-title {
+    font-size: 11px;
+    font-weight: 800;
+    color: #7E1F3B;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.hero-newyear-title::after {
+    content: '';
+    height: 1px;
+    flex: 1;
+    background: linear-gradient(90deg, rgba(199, 154, 85, 0.4), transparent);
+}
+
+.hero-newyear-grid {
+    display: flex;
+    gap: 14px;
+}
+
+.hero-newyear-img {
+    flex: 1;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(54, 28, 31, 0.08);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+    display: block;
+    border: 1px solid rgba(166, 141, 130, 0.15);
+}
+
+.hero-newyear-img:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 25px rgba(92, 20, 43, 0.15);
+}
+
+.hero-newyear-img img {
+    width: 100%;
+    height: 130px;
+    object-fit: cover;
+    display: block;
+}
+
+@media (max-width: 900px) {
+    .hero-newyear-block {
+        margin: 24px 0 18px;
+        padding: 28px 16px 16px;
+    }
+    .hero-newyear-img img {
+        height: 110px;
+    }
+}
