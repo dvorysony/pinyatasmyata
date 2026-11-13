@@ -43,19 +43,37 @@
 .surprise-banner__text b { color: #E6C994; display: block; font-size: 18px; margin-bottom: 4px; }
 .surprise-banner .btn { background: #FBF3E8 !important; color: #7E1F3B !important; border: none !important; font-weight: 800 !important; }
 
-/* Мобильный фильтр "В наличии" */
-.mobile-filter-wrap { display: none; margin-bottom: 20px; }
-.mobile-stock-btn {
-    display: flex; align-items: center; justify-content: center; gap: 8px;
-    width: 100%; padding: 14px;
-    background: rgba(255, 252, 249, 0.7);
-    border: 1px solid rgba(199, 154, 85, 0.4);
-    border-radius: 14px;
-    font-family: inherit; font-size: 14px; font-weight: 700;
-    color: #6B4E2B; cursor: pointer; transition: all 0.3s;
+/* Мобильный фильтр "В наличии" (Компактный) */
+.mobile-filter-wrap { 
+    display: none; 
+    margin-bottom: 16px; 
+    justify-content: flex-end; /* Прижимаем вправо */
 }
-.mobile-stock-btn.active { background: #4f7544; color: #fff; border-color: #4f7544; box-shadow: 0 4px 12px rgba(79, 117, 68, 0.3); }
-.mobile-stock-btn svg { width: 18px; height: 18px; }
+.mobile-stock-btn {
+    display: inline-flex; 
+    align-items: center; 
+    justify-content: center; 
+    gap: 6px;
+    width: auto; 
+    padding: 8px 16px;
+    background: rgba(255, 252, 249, 0.9);
+    border: 1px solid rgba(199, 154, 85, 0.5);
+    border-radius: 999px; /* Форма пилюли */
+    font-family: inherit; 
+    font-size: 12px; 
+    font-weight: 700;
+    color: #6B4E2B; 
+    cursor: pointer; 
+    transition: all 0.3s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.mobile-stock-btn.active { 
+    background: #4f7544; 
+    color: #fff; 
+    border-color: #4f7544; 
+    box-shadow: 0 4px 12px rgba(79, 117, 68, 0.3); 
+}
+.mobile-stock-btn svg { width: 14px; height: 14px; }
 
 /* Скрываем сайдбар полностью */
 .stock-sidebar { display: none !important; }
@@ -103,7 +121,18 @@
     box-shadow: 0 2px 8px rgba(0,0,0,0.15); transition: transform 0.3s;
 }
 .product-modal__close:hover { transform: rotate(90deg); }
-.product-modal__img { width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 24px 24px 0 0; }
+
+/* ФОТО ЦЕЛИКОМ БЕЗ ОБРЕЗКИ */
+.product-modal__img { 
+    width: 100%; 
+    height: auto;
+    max-height: 60vh; /* Ограничиваем по высоте, чтобы модалка влезала */
+    object-fit: contain; /* ФОТО ВИДНО ЦЕЛИКОМ */
+    background: #FCF9F4; /* Красивый светлый фон по бокам */
+    border-radius: 24px 24px 0 0; 
+    display: block;
+}
+
 .product-modal__content { padding: 24px; }
 .product-modal__title { font-size: 22px; font-weight: 800; margin-bottom: 8px; color: var(--ink); }
 .product-modal__price { font-size: 24px; font-weight: 800; color: var(--brand); margin-bottom: 16px; }
@@ -116,7 +145,7 @@
     .page-hero p { font-size: 13px !important; }
     .page-hero .section-eyebrow { margin-bottom: 10px !important; }
     
-    .mobile-filter-wrap { display: block; }
+    .mobile-filter-wrap { display: flex; }
     
     .surprise-banner { flex-direction: column; text-align: center; padding: 24px 20px !important; gap: 16px !important; }
     .surprise-banner__text { font-size: 14px !important; }
@@ -211,10 +240,11 @@
             <button class="btn btn-primary" onclick="openOrderFor('Пиньята-сюрприз (с вязаной игрушкой)')">Хочу сюрприз</button>
         </div>
 
+        <!-- Компактный фильтр справа -->
         <div class="mobile-filter-wrap reveal">
             <button class="mobile-stock-btn" id="mobileStockToggle" onclick="toggleMobileStock()">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
-                Показать только в наличии
+                В наличии
             </button>
         </div>
 
@@ -225,7 +255,6 @@
             <div class="catalog-main">
                 <div class="catalog" id="catalogList"><p class="catalog-empty">Загрузка…</p></div>
             </div>
-            <!-- Колонка stockSidebar удалена -->
         </div>
 
     </div>
@@ -284,7 +313,6 @@
     </div>
 </footer>
 
-<!-- МОДАЛКА ЗАКАЗА -->
 <div class="modal-bg" id="orderModal">
     <div class="modal" role="dialog">
         <button class="modal-close" onclick="closeOrder()" aria-label="Закрыть">×</button>
@@ -348,10 +376,10 @@ function toggleMobileStock() {
     const btn = document.getElementById('mobileStockToggle');
     if (mobileStockOnly) {
         btn.classList.add('active');
-        btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Показаны только в наличии';
+        btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> В наличии';
     } else {
         btn.classList.remove('active');
-        btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Показать только в наличии';
+        btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> В наличии';
     }
     renderCatalog();
 }
@@ -397,7 +425,6 @@ function setSubCategory(key) {
     renderCatalog();
 }
 
-// Обновленная функция рендера карточки (с обработкой клика)
 function productHTML(p, i) {
     const media = p.image
         ? '<div class="product-img-wrap"><img src="' + esc(p.image) + '" alt="' + esc(p.name) + '" loading="lazy"></div>'
@@ -406,14 +433,12 @@ function productHTML(p, i) {
     const badgeHTML = p.inStock ? '<div class="in-stock-badge">В наличии</div>' : '';
     const delay = 'reveal delay-' + Math.min(4, (i % 4) + 1);
 
-    // Оборачиваем все в div с onclick для открытия модалки
     return '<article class="product ' + delay + '" style="position:relative; cursor:pointer;" onclick="openProductModal(\'' + esc(p.id) + '\')">' +
         badgeHTML +
         media +
         '<div class="product-info">' +
             '<h3>' + esc(p.name) + '</h3>' +
             '<div class="price">' + esc(p.price || 'по запросу') + '</div>' +
-            // Кнопка Заказать. event.stopPropagation() нужен, чтобы клик по кнопке не открывал модалку товара, а сразу форму заказа
             '<button class="btn btn-primary" type="button" onclick="event.stopPropagation(); openOrderFor(\'' + esc(p.name) + '\')">Заказать</button>' +
         '</div></article>';
 }
@@ -426,7 +451,6 @@ function renderCatalog() {
         products = products.filter(p => (p.category_sub || p.category || 'other') === activeSubCategory);
     }
 
-    // Если включен мобильный фильтр "В наличии"
     if (mobileStockOnly) {
         products = products.filter(p => p.inStock);
     }
@@ -444,7 +468,6 @@ function renderCatalog() {
     observeReveals();
 }
 
-// Логика модалки товара
 function openProductModal(id) {
     const p = cache.find(item => item.id === id);
     if (!p) return;
@@ -475,7 +498,6 @@ function closeProductModal() {
     document.body.classList.remove('modal-open');
 }
 
-// Закрытие модалки по клику на фон
 document.getElementById('productDetailsModal').addEventListener('click', function(e) {
     if (e.target === this) closeProductModal();
 });
