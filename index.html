@@ -618,7 +618,7 @@
         <div class="form-field"><label for="orderPhone">Телефон *</label><input id="orderPhone" type="tel" placeholder="+7 ___ ___-__-__"></div>
         <div class="form-field"><label for="orderProduct">Что хотите заказать</label><input id="orderProduct" type="text" placeholder="Например: пиньята-цифра «1»"></div>
         <div class="form-field"><label for="orderDate">Дата праздника</label><input id="orderDate" type="date" min=""></div>
-        <div class="form-field"><label for="orderComment">Комментарий</label><textarea id="orderComment" placeholder="Город, цвета, размер, идея"></textarea></div>
+        <div class="form-field"><label for="orderComment">Комментарий</label><textarea id="orderComment" placeholder="Цвет, размер, форма, ваша идея"></textarea></div>
         <button class="btn btn-primary" id="orderBtn" onclick="submitOrder()">Отправить заявку</button>
         <div class="form-status" id="orderStatus"></div>
         <div class="modal-divider">или напишите нам</div>
@@ -731,11 +731,13 @@ const MAIN_CATEGORIES = [
 
 const SUB_CATEGORIES = {
     pinyaty: [
-        { key: 'shar',   label: 'Пиньята-шар' },
-        { key: '3d',     label: '3D-фигуры' },
-        { key: 'cifry',  label: 'Цифры' },
-        { key: 'torti',  label: 'Торты' },
-        { key: 'other',  label: 'Другое' }
+        { key: 'newyear', label: '🎄 Новогодняя коллекция' },
+        { key: 'all',     label: 'Все пиньяты' },
+        { key: 'shar',    label: 'Пиньята-шар' },
+        { key: '3d',      label: '3D-фигуры' },
+        { key: 'cifry',   label: 'Цифры' },
+        { key: 'torti',   label: 'Торты' },
+        { key: 'other',   label: 'Другое' }
     ],
     knit: [
         { key: 'toys',    label: 'Игрушки' },
