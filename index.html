@@ -338,7 +338,33 @@
     display: block;
 }
 
+/* ===== МОБИЛЬНЫЕ ПРАВКИ (Уменьшаем отступы и размеры) ===== */
 @media (max-width: 900px) {
+    /* 1. Уменьшаем отступы главного экрана */
+    .hero-section {
+        padding: 20px 0 20px !important;
+    }
+    .hero-section .container {
+        gap: 15px !important;
+    }
+    
+    /* 2. Уменьшаем фото 3D-пиньят */
+    .hero-new-img {
+        max-height: 200px !important;
+    }
+    
+    /* 3. Уменьшаем кнопку "Смотреть каталог" */
+    .hero-text-block .btn {
+        padding: 12px 20px !important;
+        font-size: 12px !important;
+        border-radius: 10px !important;
+    }
+
+    /* 4. Уменьшаем отступ перед Новогодним блоком */
+    .ny-section-wrapper {
+        padding: 10px 0 10px !important;
+    }
+
     .ny-promo-block {
         padding: 30px 20px;
         border-radius: 24px;
@@ -428,7 +454,7 @@
         <div class="hero-text-block">
             <div class="hero-tagline" style="display:inline-flex;align-items:center;gap:10px;padding:8px 15px;background:rgba(255,255,255,.56);border:1px solid rgba(166,141,130,.22);border-radius:999px;font-size:10px;font-weight:700;color:var(--mute);letter-spacing:.18em;text-transform:uppercase;margin-bottom:28px">Красноярск · ручная работа</div>
             <h1 style="font-size:clamp(48px,6.3vw,82px);line-height:.98;margin:0 0 28px;font-weight:800;letter-spacing:-.065em;max-width:700px">Пиньяты, шары<br><span style="color:var(--brand)">и вязаный уют</span></h1>
-            <p style="font-size:16px;line-height:1.8;color:var(--ink-soft);max-width:540px;margin:0 0 34px">Авторские изделия ручной работы для дней рождения, семейных праздников и особенных событий в Красноярске и по всей России.</p>
+            <p style="font-size:16px;line-height:1.8;color:var(--ink-soft);max-width:540px;margin:0 0 24px">Авторские изделия ручной работы для дней рождения, семейных праздников и особенных событий в Красноярске и по всей России.</p>
             <div style="display:flex;flex-wrap:wrap;gap:12px">
                 <a class="btn btn-primary" href="catalog.html">Смотреть каталог</a>
             </div>
@@ -447,7 +473,7 @@
 </section>
 
 <!-- НОВОГОДНЯЯ СЕКЦИЯ С ГИРЛЯНДОЙ -->
-<section style="padding: 40px 0 20px; position: relative; z-index: 2;">
+<section class="ny-section-wrapper" style="padding: 40px 0 20px; position: relative; z-index: 2;">
     <div class="container">
         <div class="ny-promo-block reveal">
             <!-- Гирлянда -->
