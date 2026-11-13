@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Каталог — Пиньята Смята</title>
+<title>Каталог пиньят в Красноярске — Пиньята Смята</title>
 <meta name="description" content="Каталог пиньят и шаров ручной работы. Пиньяты на день рождения, корпоратив, свадьбу. Доставка по России.">
 <meta name="keywords" content="пиньята каталог, купить пиньяту, шары, пиньята Красноярск">
 <meta name="robots" content="index, follow">
@@ -13,6 +13,110 @@
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="mobile-app.css">
+
+<style>
+/* ============ СТИЛИ ДЛЯ КАТАЛОГА ============ */
+.surprise-banner {
+    background: linear-gradient(135deg, #7E1F3B 0%, #5C142B 100%);
+    border-radius: 24px;
+    padding: 24px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 30px;
+    color: #FBF3E8;
+    box-shadow: 0 12px 30px rgba(92, 20, 43, 0.25);
+    border: 1px solid rgba(199, 154, 85, 0.4);
+    position: relative;
+    overflow: hidden;
+}
+.surprise-banner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1), transparent 50%);
+    pointer-events: none;
+}
+.surprise-banner__icon {
+    font-size: 40px;
+    line-height: 1;
+    flex-shrink: 0;
+    filter: drop-shadow(0 4px 10px rgba(0,0,0,0.2));
+}
+.surprise-banner__text {
+    flex: 1;
+    font-size: 15px;
+    line-height: 1.5;
+}
+.surprise-banner__text b {
+    color: #E6C994;
+    display: block;
+    font-size: 18px;
+    margin-bottom: 4px;
+    letter-spacing: 0.02em;
+}
+.surprise-banner .btn {
+    background: #FBF3E8 !important;
+    color: #7E1F3B !important;
+    border: none !important;
+    font-weight: 800 !important;
+    flex-shrink: 0;
+}
+
+/* Мобильный фильтр "В наличии" */
+.mobile-filter-wrap {
+    display: none;
+    margin-bottom: 20px;
+}
+.mobile-stock-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 14px;
+    background: rgba(255, 252, 249, 0.7);
+    border: 1px solid rgba(199, 154, 85, 0.4);
+    border-radius: 14px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    color: #6B4E2B;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.mobile-stock-btn.active {
+    background: #4f7544;
+    color: #fff;
+    border-color: #4f7544;
+    box-shadow: 0 4px 12px rgba(79, 117, 68, 0.3);
+}
+.mobile-stock-btn svg {
+    width: 18px; height: 18px;
+}
+
+@media (max-width: 900px) {
+    /* Уменьшаем шапку на мобильном */
+    .page-hero { padding: 30px 0 20px !important; }
+    .page-hero h1 { font-size: 28px !important; margin-bottom: 10px !important; }
+    .page-hero p { font-size: 13px !important; }
+    .page-hero .section-eyebrow { margin-bottom: 10px !important; }
+    
+    /* Показываем фильтр */
+    .mobile-filter-wrap { display: block; }
+    
+    /* Делаем баннер вертикальным */
+    .surprise-banner {
+        flex-direction: column;
+        text-align: center;
+        padding: 24px 20px;
+        gap: 16px;
+    }
+    .surprise-banner__text { font-size: 14px; }
+    .surprise-banner .btn { width: 100%; }
+}
+</style>
 </head>
 <body>
 
@@ -47,13 +151,31 @@
 <section class="page-hero">
     <div class="container">
         <div class="section-eyebrow">Коллекция</div>
-        <h1>Каталог <span class="accent">изделий</span></h1>
-        <p>Можно повторить готовую модель или заказать по вашей идее</p>
+        <h1>Каталог <span class="accent">пиньят</span></h1>
+        <p>Выберите готовый дизайн или закажите по своей идее</p>
     </div>
 </section>
 
 <section style="padding-top:0">
     <div class="container">
+
+        <!-- Баннер Пиньята-сюрприз -->
+        <div class="surprise-banner reveal">
+            <div class="surprise-banner__icon">🎁</div>
+            <div class="surprise-banner__text">
+                <b>Новинка: Пиньята-сюрприз</b>
+                Выбирайте пиньяту-сюрприз! Внутри вас ждет вязаная игрушка ручной работы. Эффект Лабубу — не знаешь, какая попадется.
+            </div>
+            <button class="btn btn-primary" onclick="openOrderFor('Пиньята-сюрприз (с вязаной игрушкой)')">Хочу сюрприз</button>
+        </div>
+
+        <!-- Фильтр для мобильных -->
+        <div class="mobile-filter-wrap reveal">
+            <button class="mobile-stock-btn" id="mobileStockToggle" onclick="toggleMobileStock()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+                Показать только в наличии
+            </button>
+        </div>
 
         <div class="cats reveal" id="categories" style="margin-top:8px"></div>
         <div class="cats cats-sub reveal" id="subCategories" style="display:none"></div>
@@ -78,7 +200,7 @@
 <section style="padding-top:40px;padding-bottom:96px">
     <div class="container">
         <div class="how-contact reveal">
-            <h3>Заявка на сайте <span class="accent">или напишите нам</span></h3>
+            <h3>Не нашли нужную? <span class="accent">Сделаем на заказ!</span></h3>
             <p>Заполните форму — мы свяжемся с вами. Или напишите в удобный мессенджер: ответим и поможем выбрать дизайн.</p>
             <div class="row">
                 <button class="btn btn-primary" onclick="openOrder()">Оставить заявку</button>
@@ -153,22 +275,38 @@
 let cache = [];
 let activeMainCategory = 'pinyaty';
 let activeSubCategory = 'all';
+let mobileStockOnly = false; // Переменная для фильтра на мобильном
 
 const MAIN_CATEGORIES = [
     { key: 'pinyaty', label: 'Пиньяты' },
     { key: 'balls',   label: 'Шары' }
 ];
 
+// Добавили Новогоднюю коллекцию
 const SUB_CATEGORIES = {
     pinyaty: [
-        { key: 'all',    label: 'Все пиньяты' },
-        { key: 'shar',   label: 'Пиньята-шар' },
-        { key: '3d',     label: '3D-фигуры' },
-        { key: 'cifry',  label: 'Цифры' },
-        { key: 'torti',  label: 'Торты' },
-        { key: 'other',  label: 'Другое' }
+        { key: 'all',     label: 'Все пиньяты' },
+        { key: 'newyear', label: '🎄 Новогодняя коллекция' },
+        { key: 'shar',    label: 'Пиньята-шар' },
+        { key: '3d',      label: '3D-фигуры' },
+        { key: 'cifry',   label: 'Цифры' },
+        { key: 'torti',   label: 'Торты' },
+        { key: 'other',   label: 'Другое' }
     ]
 };
+
+function toggleMobileStock() {
+    mobileStockOnly = !mobileStockOnly;
+    const btn = document.getElementById('mobileStockToggle');
+    if (mobileStockOnly) {
+        btn.classList.add('active');
+        btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Показаны только в наличии';
+    } else {
+        btn.classList.remove('active');
+        btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Показать только в наличии';
+    }
+    renderCatalog();
+}
 
 function renderCategories() {
     const mainBox = document.getElementById('categories');
@@ -179,9 +317,8 @@ function renderCategories() {
         return '<button class="cat-btn cat-btn-main' + a + '" type="button" onclick="setMainCategory(\'' + c.key + '\')">' + c.label + '</button>';
     }).join('');
 
-    const knitLink = '<a href="knit.html" class="cat-btn cat-btn-main cat-btn-link">🧶 Вязаные изделия</a>';
-
-    mainBox.innerHTML = mainHTML + knitLink;
+    // УБРАЛИ ССЫЛКУ НА ВЯЗАНЫЕ ИЗДЕЛИЯ
+    mainBox.innerHTML = mainHTML;
 
     if (activeMainCategory === 'pinyaty') {
         subBox.style.display = 'flex';
@@ -243,9 +380,26 @@ function renderCatalog() {
         products = products.filter(p => (p.category_sub || p.category || 'other') === activeSubCategory);
     }
 
-    const inStock = products.filter(p => p.inStock);
-    const examples = products.filter(p => !p.inStock);
+    let inStock = products.filter(p => p.inStock);
+    let examples = products.filter(p => !p.inStock);
 
+    // ЛОГИКА МОБИЛЬНОГО ФИЛЬТРА
+    const isMobile = window.matchMedia('(max-width: 900px)').matches;
+    
+    if (isMobile && mobileStockOnly) {
+        // Если на телефоне нажали "Только в наличии", показываем только их на весь экран
+        sidebar.style.display = 'none';
+        layout.classList.add('no-stock');
+        if (!inStock.length) {
+            grid.innerHTML = '<p class="catalog-empty" style="grid-column:1/-1">Сейчас нет товаров в наличии. Загляните позже!</p>';
+        } else {
+            grid.innerHTML = inStock.map((p, i) => productHTML(p, i, 'В наличии')).join('');
+        }
+        observeReveals();
+        return;
+    }
+
+    // Обычная логика (для ПК или если фильтр выключен)
     if (inStock.length) {
         sidebar.style.display = 'block';
         layout.classList.remove('no-stock');
@@ -271,7 +425,7 @@ function renderCatalog() {
                 grid.innerHTML = '<p class="catalog-empty" style="grid-column:1/-1">В этой категории пока нет товаров.</p>';
             }
         } else {
-            grid.innerHTML = '<p class="catalog-empty" style="grid-column:1/-1">Все товары сейчас в наличии — смотрите блок «✅ В наличии» выше</p>';
+            grid.innerHTML = '<p class="catalog-empty" style="grid-column:1/-1">Все товары сейчас в наличии — смотрите блок «✅ В наличии».</p>';
         }
     } else {
         grid.innerHTML = examples.map((p, i) => productHTML(p, i)).join('');
