@@ -1387,106 +1387,113 @@ body {
     opacity: 1;
 }
 /* =========================================================
-   БЛОК НОВОГОДНИХ НОВИНОК (ОДНО ФОТО) С МАГИЧЕСКИМИ БЛИКАМИ
+   НОВОГОДНИЙ БАННЕР (ГИРЛЯНДА + ПЕЧЕНЬКА)
    ========================================================= */
 
 .hero-newyear-block {
-    margin: 32px 0 24px;
-    display: flex;
-    flex-direction: column;
     position: relative;
-    padding: 12px; /* Уменьшили отступ, чтобы фото было крупнее */
+    margin: 0 0 32px 0; /* Отступ снизу до кнопки */
+    padding: 36px 16px 16px; /* Сверху место для гирлянды */
+    background: linear-gradient(180deg, rgba(255, 252, 249, 0.95) 0%, rgba(248, 240, 232, 0.95) 100%);
     border-radius: 24px;
+    border: 1px solid rgba(199, 154, 85, 0.3);
+    box-shadow: 0 12px 30px rgba(54, 28, 31, 0.06), inset 0 0 20px rgba(255, 255, 255, 0.8);
     overflow: hidden;
+    width: 100%; /* Занимает всю ширину левой колонки */
+    max-width: 540px; /* Ограничиваем, чтобы не растягивалось на ПК */
+}
+
+/* 1. Провод гирлянды */
+.hero-newyear-garland {
+    position: absolute;
+    top: 16px;
+    left: 5%;
+    right: 5%;
+    height: 2px;
+    background: #C79A55; /* Золотой провод */
+    border-radius: 2px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     z-index: 1;
-    
-    /* Мягкие цветные блики на фоне (золото и роза) */
-    background: 
-        radial-gradient(circle at 15% 20%, rgba(230, 201, 148, 0.25) 0%, transparent 45%),
-        radial-gradient(circle at 85% 80%, rgba(240, 91, 118, 0.15) 0%, transparent 45%),
-        radial-gradient(circle at 50% 120%, rgba(199, 154, 85, 0.15) 0%, transparent 50%),
-        #FFFCF9;
-    border: 1px solid rgba(199, 154, 85, 0.35);
-    box-shadow: 0 10px 30px rgba(54, 28, 31, 0.06), inset 0 0 20px rgba(255, 255, 255, 0.5);
 }
 
-/* 1. Мерцающие точки на фоне */
-.hero-newyear-block::before {
+/* 2. Лампочки на гирлянде */
+.hero-newyear-garland::before {
     content: '';
     position: absolute;
-    inset: 0;
+    top: -4px;
+    left: 0;
+    right: 0;
+    height: 12px;
+    /* Рисуем точки-лампочки */
     background-image: 
-        radial-gradient(circle, #FFF 1.5px, transparent 2px),
-        radial-gradient(circle, #E6C994 2px, transparent 2.5px);
-    background-size: 50px 50px, 80px 80px;
-    background-position: 0 0, 25px 25px;
-    opacity: 0.6;
-    animation: twinkleBg 4s infinite alternate;
-    z-index: -1;
-    pointer-events: none;
+        radial-gradient(circle, #FF4D4D 3px, transparent 4px),
+        radial-gradient(circle, #FFD700 3px, transparent 4px),
+        radial-gradient(circle, #4DFF4D 3px, transparent 4px),
+        radial-gradient(circle, #4D9AFF 3px, transparent 4px);
+    background-size: 50px 12px;
+    background-repeat: repeat-x;
+    background-position: 0px 0px, 12px 2px, 25px 0px, 37px 2px;
+    animation: blink 2s infinite alternate;
+    filter: drop-shadow(0 0 4px rgba(255, 215, 0, 0.6));
 }
 
-/* 2. Плавный переливающийся блик */
-.hero-newyear-block::after {
-    content: '';
-    position: absolute;
-    top: -50%; left: -100%; width: 50%; height: 200%;
-    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.6), transparent);
-    transform: rotate(25deg);
-    animation: sweepShine 7s infinite cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 0;
-    pointer-events: none;
+@keyframes blink {
+    0% { opacity: 0.6; filter: drop-shadow(0 0 2px rgba(255, 215, 0, 0.4)); }
+    100% { opacity: 1; filter: drop-shadow(0 0 8px rgba(255, 77, 77, 0.8)) drop-shadow(0 0 4px rgba(255, 215, 0, 0.8)); }
 }
 
-@keyframes twinkleBg {
-    0% { opacity: 0.3; filter: drop-shadow(0 0 2px #FFF); }
-    100% { opacity: 0.9; filter: drop-shadow(0 0 8px #E6C994); }
-}
-
-@keyframes sweepShine {
-    0% { left: -100%; }
-    25% { left: 200%; }
-    100% { left: 200%; }
-}
-
-/* Контейнер для фото */
-.hero-newyear-grid {
-    display: flex;
-    gap: 0;
+/* 3. Заголовок */
+.hero-newyear-title {
+    font-size: 13px;
+    font-weight: 800;
+    color: #7E1F3B;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 16px;
     position: relative;
     z-index: 2;
 }
 
+/* 4. Контейнер для фото */
 .hero-newyear-img {
-    flex: 1;
+    display: block;
+    width: 100%;
+    height: 160px; /* Оптимальная высота для ПК */
     border-radius: 16px;
     overflow: hidden;
-    box-shadow: 0 4px 15px rgba(54, 28, 31, 0.1);
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
-    display: block;
-    border: 1px solid rgba(166, 141, 130, 0.15);
+    box-shadow: 0 8px 20px rgba(54, 28, 31, 0.1);
+    border: 1px solid rgba(166, 141, 130, 0.2);
+    position: relative;
+    z-index: 2;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
 .hero-newyear-img:hover {
-    transform: scale(1.02);
-    box-shadow: 0 8px 25px rgba(92, 20, 43, 0.15);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(92, 20, 43, 0.15);
 }
 
-/* Размер самого фото */
+/* 5. Само фото */
 .hero-newyear-img img {
     width: 100%;
-    height: 220px; /* Сделали повыше, так как оно одно */
-    object-fit: cover;
+    height: 100%;
+    object-fit: cover; /* Заполняет блок, не искажая пропорции */
     object-position: center;
     display: block;
 }
 
+/* Адаптив для мобилок */
 @media (max-width: 900px) {
     .hero-newyear-block {
-        margin: 24px 0 18px;
-        padding: 8px;
+        margin: 0 0 24px 0;
+        padding: 30px 12px 12px;
+        max-width: 100%;
     }
-    .hero-newyear-img img {
-        height: 160px; /* На телефоне чуть ниже */
+    .hero-newyear-img {
+        height: 130px;
+    }
+    .hero-newyear-title {
+        font-size: 11px;
     }
 }
